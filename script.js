@@ -58,7 +58,7 @@ formContainer.append(
   radioButtonsMainContainer,
   submitButtonContainer
 );
-
+//
 function createForm() {
   container.appendChild(formContainer);
   nameItemContainer.append(nameLabel, nameInput);
