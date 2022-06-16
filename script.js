@@ -29,16 +29,26 @@ const emailLabel = document.createElement("label");
 const rangeContainer = document.getElementById("rangeContainer");
 const sliderElement = document.createElement("div");
 const rangeInput = document.getElementById("rangeInput");
+
 const rangeLabel = document.createElement("label");
 const rangeTicks = document.getElementById("ticks");
-
 const radioButtonsMainContainer = document.createElement("div");
+
 radioButtonsMainContainer.classList.add("radioButton2");
-radioButtonsMainContainer.textContent = "Select your group:";
+radioButtonsMainContainer.textContent = "Select your group*:";
+const tick = document.querySelectorAll(".tick");
 
 const submitButtonContainer = document.createElement("div");
 const submitButton = document.createElement("input");
+submitButton.setAttribute("id", "submitButton");
 const submitButtonLabel = document.createElement("label");
+
+const requiered = document.createElement("p");
+requiered.style.marginTop = "20px";
+requiered.style.fontSize = "7px";
+requiered.textContent = "*Requiered";
+
+let idCounter = 0;
 
 container.style.width = "100%";
 
@@ -56,6 +66,7 @@ formContainer.append(
   emailContainer,
   rangeContainer,
   radioButtonsMainContainer,
+  requiered,
   submitButtonContainer
 );
 //
@@ -74,15 +85,16 @@ function createForm() {
   createLastNameEl();
   createAgeEl();
   createPhoneEl();
-  createEmailEl();
+
   createRangeEl();
-  submit();
+  createEmailEl();
   createRadioButton();
 }
 createForm();
 //CONTAINER
 
 //NAME
+
 function createNameEl() {
   nameItemContainer.style.display = "flex";
   nameItemContainer.style.justifyContent = "space-between";
@@ -95,10 +107,10 @@ function createNameEl() {
   nameInput.type = "text";
   nameInput.placeholder = "Name";
   nameInput.name = "nameLabel";
-  nameInput.required;
+  nameInput.required = true;
 
   nameLabel.htmlFor = "nameLabel";
-  nameLabel.innerHTML = "Name :";
+  nameLabel.innerHTML = "Name* :";
   nameLabel.style.fontSize = "10px";
 }
 //LAST NAME
@@ -114,10 +126,10 @@ function createLastNameEl() {
   lastNameInput.type = "text";
   lastNameInput.placeholder = "Last Name";
   lastNameInput.name = "lastNameLabel";
-  lastNameInput.required;
+  lastNameInput.required = true;
 
   lastNameLabel.htmlFor = "lastNameLabel";
-  lastNameLabel.innerHTML = "Last Name: ";
+  lastNameLabel.innerHTML = "Last Name*: ";
   lastNameLabel.style.fontSize = "10px";
   lastNameLabel.style.lineHeight = "10px";
 }
@@ -137,7 +149,7 @@ function createAgeEl() {
   ageInput.required;
 
   ageLabel.htmlFor = "ageLabel";
-  ageLabel.innerHTML = "Age: ";
+  ageLabel.innerHTML = "Age*: ";
   ageLabel.style.fontSize = "10px";
 }
 //PHONE
@@ -171,18 +183,19 @@ function createEmailEl() {
   emailInput.type = "email";
   emailInput.placeholder = "Email";
   emailInput.name = "emailLabel";
-  emailInput.required;
+  emailInput.required = true;
 
   emailLabel.htmlFor = "emailLabel";
-  emailLabel.innerHTML = "Email: ";
+  emailLabel.innerHTML = "Email*: ";
   emailLabel.style.fontSize = "10px";
 }
+
 //RANGE\
 function createRangeEl() {
   rangeContainer.style.display = "flex";
   rangeContainer.style.flexDirection = "space-between";
   rangeLabel.htmlFor = "rangeInput";
-  rangeLabel.innerHTML = "Grade your IT knowledge: ";
+  rangeLabel.innerHTML = "Grade your IT knowledge*: ";
   rangeLabel.style.width = "100%";
   rangeLabel.style.fontSize = "10px";
   rangeLabel.style.lineHeight = "12px";
@@ -193,13 +206,74 @@ radioButtonsMainContainer.style.fontSize = "10px";
 radioButtonsMainContainer.style.marginTop = "10px";
 
 //SUBMIT
-function submit() {
-  submitButtonContainer.style.margin = "auto";
-  submitButtonContainer.style.textAlign = "center";
-  submitButtonContainer.style.marginTop = "20px";
-  submitButton.type = "submit";
+
+submitButtonContainer.style.margin = "auto";
+submitButtonContainer.style.textAlign = "center";
+submitButtonContainer.style.marginTop = "10px";
+submitButton.type = "submit";
+
+const buttonSubmit = document.getElementById("submitButton");
+buttonSubmit.addEventListener("click", (e) => {
+  e.preventDefault();
+  const noName = "Name not filled";
+  const noEmail = "Email not filled";
+  const noLastName = "Last Name not filled";
+
+  emailInput.value !== "" &&
+  nameInput.value !== "" &&
+  lastNameInput.value !== "" &&
+  ageInput.value !== "" &&
+  rangeTicks.checked !== "" &&
+  myRadioInput.checked
+    ? alert(
+        `Name: ${nameInput.value}, Lastname: ${lastNameInput.value}, Email: ${emailInput.value}, Age: ${ageInput.value}, It knowledge: ${rangeInput.value} ${radioLabel.innerHTML}`
+      )
+    : alert("You didint fill out the requiered fields");
+});
+
+const radioButtonsContainer = document.createElement("div");
+radioButtonsContainer.classList.add("radioButton");
+radioButtonsContainer.style.fontSize = "10px";
+radioButtonsContainer.style.marginTop = "10px";
+formContainer.append(radioButtonsContainer);
+radioButtonsMainContainer.append(radioButtonsContainer);
+function createRadioButton() {}
+
+for (let i = 1; i <= 15; i++) {
+  const radioInput = document.createElement("input");
+  const radioLabel = document.createElement("label");
+  radioInput.classList.add("radioInput");
+  radioLabel.classList.add("radioLabel");
+
+  radioInput.type = "radio";
+  radioInput.setAttribute("id", idCounter);
+  radioInput.name = `radiolLabel${i}`;
+  radioLabel.htmlFor = `radiolLabel${i}`;
+  radioLabel.setAttribute("id", idCounter);
+  radioLabel.innerHTML = `TYPE ${i}gr:`;
+
+  radioButtonsContainer.style.textAlign = "center";
+  radioButtonsContainer.style.alignItems = "center";
+  // document.querySelector('input[name="radiolLabel"]:checked').value;
+  radioLabel.style.fontSize = "6px";
+  radioButtonsContainer.append(radioLabel, radioInput);
+  const radios = (radioLabel.htmlFor = `radiolLabel${i}`);
+  if (radios.checked) {
+    alert("SSS");
+  }
+  for (var j = 0, length = radios.length; j < length; j++) {
+    if (radios[j].checked) {
+      // do whatever you want with the checked radio
+      console.log(radios[i].value);
+
+      // only one radio can be logically checked, don't check the rest
+      break;
+    }
+  }
+  idCounter++;
 }
 
+console.log(emailInput);
 function ticks(element) {
   if (
     element.hasOwnProperty("list") &&
@@ -221,32 +295,3 @@ function ticks(element) {
 var lists = document.querySelectorAll("input[type=range][list]"),
   arr = Array.prototype.slice.call(lists);
 arr.forEach(ticks);
-
-function createRadioButton() {
-  const radioButtonsContainer = document.createElement("div");
-  radioButtonsContainer.classList.add("radioButton");
-  radioButtonsContainer.style.fontSize = "10px";
-  radioButtonsContainer.style.marginTop = "10px";
-
-  for (let i = 1; i <= 15; i++) {
-    const radioInput = document.createElement("input");
-    const radioLabel = document.createElement("label");
-
-    radioButtonsContainer.style.gridColumne;
-
-    formContainer.append(radioButtonsContainer);
-    radioButtonsContainer.append(radioLabel, radioInput);
-
-    radioInput.type = "radio";
-    radioInput.name = `radiolLabel`;
-
-    radioLabel.htmlFor = "radiolLabel";
-    radioLabel.innerHTML = `TYPE ${i}gr:`;
-
-    radioButtonsContainer.style.textAlign = "center";
-    radioButtonsContainer.style.alignItems = "center";
-
-    radioLabel.style.fontSize = "6px";
-  }
-  radioButtonsMainContainer.append(radioButtonsContainer);
-}
