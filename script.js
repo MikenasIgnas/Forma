@@ -48,8 +48,6 @@ requiered.style.marginTop = "20px";
 requiered.style.fontSize = "7px";
 requiered.textContent = "*Requiered";
 
-let idCounter = 0;
-
 container.style.width = "100%";
 
 formContainer.style.width = "210px";
@@ -69,6 +67,7 @@ formContainer.append(
   requiered,
   submitButtonContainer
 );
+
 //
 function createForm() {
   container.appendChild(formContainer);
@@ -80,13 +79,13 @@ function createForm() {
   rangeContainer.append(rangeLabel, sliderElement);
   sliderElement.append(rangeInput, rangeTicks);
   submitButtonContainer.append(submitButton, submitButtonLabel);
-
   createNameEl();
   createLastNameEl();
   createAgeEl();
   createPhoneEl();
 
   createRangeEl();
+
   createEmailEl();
   createRadioButton();
 }
@@ -212,68 +211,54 @@ submitButtonContainer.style.textAlign = "center";
 submitButtonContainer.style.marginTop = "10px";
 submitButton.type = "submit";
 
+function createRadioButton() {
+  const radioButtonsContainer = document.createElement("div");
+  radioButtonsContainer.classList.add("radioButton");
+  radioButtonsContainer.style.fontSize = "10px";
+  radioButtonsContainer.style.marginTop = "10px";
+  formContainer.append(radioButtonsContainer);
+  radioButtonsMainContainer.append(radioButtonsContainer);
+  for (let i = 1; i <= 15; i++) {
+    const radioInput = document.createElement("input");
+    const radioLabel = document.createElement("label");
+
+    radioInput.type = "radio";
+    radioInput.setAttribute("value", `TYPE ${i}gr`);
+    radioInput.name = `radioLabel`;
+    radioInput.setAttribute("Id", "radioInput");
+
+    radioLabel.htmlFor = `radioLabel${i}`;
+    radioLabel.setAttribute("value", `TYPE ${i}gr:`);
+    radioLabel.setAttribute("id", "radioLabel");
+
+    radioLabel.innerHTML = `TYPE ${i}gr:`;
+
+    radioButtonsContainer.style.textAlign = "center";
+    radioButtonsContainer.style.alignItems = "center";
+    radioLabel.style.fontSize = "6px";
+    radioButtonsContainer.append(radioLabel, radioInput);
+  }
+}
+
+const radioInput = document.getElementById("radioInput");
+const radioLabel = document.getElementById("radioLabel");
 const buttonSubmit = document.getElementById("submitButton");
+
 buttonSubmit.addEventListener("click", (e) => {
   e.preventDefault();
-  const noName = "Name not filled";
-  const noEmail = "Email not filled";
-  const noLastName = "Last Name not filled";
-
   emailInput.value !== "" &&
   nameInput.value !== "" &&
   lastNameInput.value !== "" &&
   ageInput.value !== "" &&
   rangeTicks.checked !== "" &&
-  myRadioInput.checked
+  radioInput.checked !== ""
     ? alert(
-        `Name: ${nameInput.value}, Lastname: ${lastNameInput.value}, Email: ${emailInput.value}, Age: ${ageInput.value}, It knowledge: ${rangeInput.value} ${radioLabel.innerHTML}`
+        `Name: ${nameInput.value}, Lastname: ${lastNameInput.value}, Email: ${emailInput.value}, Age: ${ageInput.value}, It knowledge: ${rangeInput.value},${radioLabel.value}`
       )
     : alert("You didint fill out the requiered fields");
 });
 
-const radioButtonsContainer = document.createElement("div");
-radioButtonsContainer.classList.add("radioButton");
-radioButtonsContainer.style.fontSize = "10px";
-radioButtonsContainer.style.marginTop = "10px";
-formContainer.append(radioButtonsContainer);
-radioButtonsMainContainer.append(radioButtonsContainer);
-function createRadioButton() {}
-
-for (let i = 1; i <= 15; i++) {
-  const radioInput = document.createElement("input");
-  const radioLabel = document.createElement("label");
-  radioInput.classList.add("radioInput");
-  radioLabel.classList.add("radioLabel");
-
-  radioInput.type = "radio";
-  radioInput.setAttribute("id", idCounter);
-  radioInput.name = `radiolLabel${i}`;
-  radioLabel.htmlFor = `radiolLabel${i}`;
-  radioLabel.setAttribute("id", idCounter);
-  radioLabel.innerHTML = `TYPE ${i}gr:`;
-
-  radioButtonsContainer.style.textAlign = "center";
-  radioButtonsContainer.style.alignItems = "center";
-  // document.querySelector('input[name="radiolLabel"]:checked').value;
-  radioLabel.style.fontSize = "6px";
-  radioButtonsContainer.append(radioLabel, radioInput);
-  const radios = (radioLabel.htmlFor = `radiolLabel${i}`);
-  if (radios.checked) {
-    alert("SSS");
-  }
-  for (var j = 0, length = radios.length; j < length; j++) {
-    if (radios[j].checked) {
-      // do whatever you want with the checked radio
-      console.log(radios[i].value);
-
-      // only one radio can be logically checked, don't check the rest
-      break;
-    }
-  }
-  idCounter++;
-}
-
-console.log(emailInput);
+//CTR+C from internet
 function ticks(element) {
   if (
     element.hasOwnProperty("list") &&
