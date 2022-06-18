@@ -5,6 +5,9 @@ container.classList.add("container");
 
 const formContainer = document.createElement("form");
 formContainer.classList.add("form");
+formContainer.style.maxWidth = "500px";
+formContainer.style.margin = "auto";
+formContainer.style.marginTop = "50px";
 
 const nameItemContainer = document.createElement("div");
 const nameInput = document.createElement("input");
@@ -39,24 +42,34 @@ radioButtonsMainContainer.textContent = "Select your group*:";
 const tick = document.querySelectorAll(".tick");
 
 const submitButtonContainer = document.createElement("div");
-const submitButton = document.createElement("input");
+const submitButton = document.createElement("button");
 submitButton.setAttribute("id", "submitButton");
 const submitButtonLabel = document.createElement("label");
 
+const formHeader = document.createElement("div");
+formHeader.style.width = "100%";
+formHeader.style.height = "150px";
+formHeader.style.margin = "0px";
+formHeader.style.backgroundColor = "gray";
+
+const headerTitle = document.createElement("p");
+headerTitle.textContent = "Register a student";
+headerTitle.style.color = "white";
+headerTitle.style.lineHeight = "150px";
+headerTitle.style.fontSize = "25px";
+headerTitle.style.paddingLeft = "20px";
+
+const formInputs = document.createElement("div");
+formInputs.style.padding = "40px";
+formInputs.style.backgroundColor = "white";
+
 const requiered = document.createElement("p");
 requiered.style.marginTop = "20px";
-requiered.style.fontSize = "7px";
+requiered.style.fontSize = "13px";
 requiered.textContent = "*Requiered";
 
-container.style.width = "100%";
-
-formContainer.style.width = "210px";
-formContainer.style.margin = "auto";
-formContainer.style.border = "1px solid black";
-formContainer.style.borderRadius = "7px";
-formContainer.style.padding = "7px";
-
-formContainer.append(
+formContainer.append(formHeader, formInputs);
+formInputs.append(
   nameItemContainer,
   lastNameItemContainer,
   ageItemContainer,
@@ -70,7 +83,8 @@ formContainer.append(
 
 //
 function createForm() {
-  container.appendChild(formContainer);
+  container.append(formContainer);
+  formHeader.append(headerTitle);
   nameItemContainer.append(nameLabel, nameInput);
   lastNameItemContainer.append(lastNameLabel, lastNameInput);
   ageItemContainer.append(ageLabel, ageInput);
@@ -90,126 +104,127 @@ function createForm() {
   createRadioButton();
 }
 createForm();
-//CONTAINER
 
 //NAME
 
 function createNameEl() {
-  nameItemContainer.style.display = "flex";
-  nameItemContainer.style.justifyContent = "space-between";
-  nameItemContainer.style.alignItems = "center";
   nameItemContainer.style.marginBottom = "10px";
 
-  nameInput.style.width = "150px";
-  nameInput.style.height = "20px";
+  nameInput.style.display = "block";
+  nameInput.style.width = "100%";
+  nameInput.style.height = "40px";
+  nameInput.style.border = "none";
+  nameInput.style.borderBottom = "1px solid black";
+  nameInput.style.outline = "none";
+  nameInput.style.marginBottom = "30px";
 
   nameInput.type = "text";
-  nameInput.placeholder = "Name";
+  nameInput.placeholder = "Name*";
   nameInput.name = "nameLabel";
-  nameInput.required = true;
-
-  nameLabel.htmlFor = "nameLabel";
-  nameLabel.innerHTML = "Name* :";
-  nameLabel.style.fontSize = "10px";
+  nameInput.required;
 }
 //LAST NAME
 function createLastNameEl() {
-  lastNameItemContainer.style.display = "flex";
-  lastNameItemContainer.style.justifyContent = "space-between";
-  lastNameItemContainer.style.alignItems = "center";
   lastNameItemContainer.style.marginBottom = "10px";
-
-  lastNameInput.style.width = "150px";
-  lastNameInput.style.height = "20px";
+  lastNameInput.style.display = "block";
+  lastNameInput.style.width = "100%";
+  lastNameInput.style.height = "40px";
+  lastNameInput.style.border = "none";
+  lastNameInput.style.borderBottom = "1px solid black";
+  lastNameInput.style.marginBottom = "30px";
+  lastNameInput.style.outline = "none";
 
   lastNameInput.type = "text";
-  lastNameInput.placeholder = "Last Name";
+  lastNameInput.placeholder = "Last Name*";
   lastNameInput.name = "lastNameLabel";
-  lastNameInput.required = true;
-
-  lastNameLabel.htmlFor = "lastNameLabel";
-  lastNameLabel.innerHTML = "Last Name*: ";
-  lastNameLabel.style.fontSize = "10px";
-  lastNameLabel.style.lineHeight = "10px";
+  lastNameInput.required;
 }
 //AGE
 function createAgeEl() {
-  ageItemContainer.style.display = "flex";
-  ageItemContainer.style.justifyContent = "space-between";
-  ageItemContainer.style.alignItems = "center";
   ageItemContainer.style.marginBottom = "10px";
 
-  ageInput.style.width = "150px";
-  ageInput.style.height = "20px";
+  ageInput.style.display = "block";
+  ageInput.style.width = "100%";
+  ageInput.style.height = "40px";
+  ageInput.style.border = "none";
+  ageInput.style.borderBottom = "1px solid black";
+  ageInput.style.marginBottom = "30px";
+  ageInput.style.outline = "none";
 
   ageInput.type = "number";
-  ageInput.placeholder = "Age";
+  ageInput.placeholder = "Age*";
   ageInput.name = "ageLabel";
   ageInput.required;
-
-  ageLabel.htmlFor = "ageLabel";
-  ageLabel.innerHTML = "Age*: ";
-  ageLabel.style.fontSize = "10px";
 }
 //PHONE
 function createPhoneEl() {
-  phoneNumberContainer.style.display = "flex";
-  phoneNumberContainer.style.justifyContent = "space-between";
-  phoneNumberContainer.style.alignItems = "center";
   phoneNumberContainer.style.marginBottom = "10px";
 
-  phoneInput.style.width = "150px";
-  phoneInput.style.height = "20px";
+  phoneInput.style.display = "block";
+  phoneInput.style.width = "100%";
+  phoneInput.style.height = "40px";
+  phoneInput.style.border = "none";
+  phoneInput.style.borderBottom = "1px solid black";
+  phoneInput.style.marginBottom = "30px";
+  phoneInput.style.outline = "none";
 
   phoneInput.type = "number";
-  phoneInput.placeholder = "Phone Nr.";
+  phoneInput.placeholder = "Phone Nr.*";
+  phoneInput.required;
   phoneInput.name = "phoneLabel";
-
-  phoneLabel.htmlFor = "phoneLabel";
-  phoneLabel.innerHTML = "Phone: ";
-  phoneLabel.style.fontSize = "10px";
 }
 //EMAIL
 function createEmailEl() {
-  emailContainer.style.display = "flex";
-  emailContainer.style.justifyContent = "space-between";
-  emailContainer.style.alignItems = "center";
   emailContainer.style.marginBottom = "10px";
 
-  emailInput.style.width = "150px";
-  emailInput.style.height = "20px";
+  emailInput.style.display = "block";
+  emailInput.style.width = "100%";
+  emailInput.style.height = "40px";
+  emailInput.style.border = "none";
+  emailInput.style.borderBottom = "1px solid black";
+  emailInput.style.outline = "none";
 
   emailInput.type = "email";
-  emailInput.placeholder = "Email";
+  emailInput.placeholder = "Email*";
   emailInput.name = "emailLabel";
-  emailInput.required = true;
-
-  emailLabel.htmlFor = "emailLabel";
-  emailLabel.innerHTML = "Email*: ";
-  emailLabel.style.fontSize = "10px";
+  emailInput.required;
 }
 
 //RANGE\
 function createRangeEl() {
-  rangeContainer.style.display = "flex";
-  rangeContainer.style.flexDirection = "space-between";
+  rangeContainer.style.marginTop = "30px";
   rangeLabel.htmlFor = "rangeInput";
   rangeLabel.innerHTML = "Grade your IT knowledge*: ";
+  rangeInput.style.display = "block";
   rangeLabel.style.width = "100%";
-  rangeLabel.style.fontSize = "10px";
-  rangeLabel.style.lineHeight = "12px";
+  rangeLabel.style.marginTop = "50px";
+  rangeLabel.style.fontSize = "20px";
 }
 
 //RADIO BUTTONS
-radioButtonsMainContainer.style.fontSize = "10px";
-radioButtonsMainContainer.style.marginTop = "10px";
+radioButtonsMainContainer.style.fontSize = "20px";
+radioButtonsMainContainer.style.marginTop = "30px";
+
+sliderElement.style.marginTop = "20px";
+sliderElement.style.width = "100%";
 
 //SUBMIT
+
+submitButton.innerHTML = "SUBMIT";
+submitButton.style.width = "40%";
+submitButton.style.height = "35px";
+submitButton.style.border = "none";
+submitButton.style.backgroundColor = "lightgray";
+submitButton.style.color = "white";
+submitButton.style.cursor = "pointer";
+submitButton.style.fontSize = "15px";
+submitButton.style.lineHeight = "35px";
+submitButton.style.textAlign = "center";
+submitButton.style.outline = "none";
 
 submitButtonContainer.style.margin = "auto";
 submitButtonContainer.style.textAlign = "center";
 submitButtonContainer.style.marginTop = "10px";
-submitButton.type = "submit";
 
 let radioValue;
 
@@ -238,63 +253,68 @@ function createRadioButton() {
 
     radioInput.addEventListener("click", setRadioValue);
 
+    radioInput.style.width = "20px";
+    radioInput.style.height = "20px";
+
     radioButtonsContainer.style.textAlign = "center";
     radioButtonsContainer.style.alignItems = "center";
-    radioLabel.style.fontSize = "6px";
+    radioButtonsContainer.style.marginTop = "25px";
+    radioLabel.style.fontSize = "13px";
+    radioLabel.style.lineHeight = "20px";
     radioButtonsContainer.append(radioLabel, radioInput);
   }
 }
 const buttonSubmit = document.getElementById("submitButton");
 
 firstNameAlert = () => {
-  nameInput.style.border = "2px solid red";
-  nameInput.style.borderRadius = "2px ";
-  nameInput.placeholder = "REQUIERED";
+  nameInput.style.border = "none";
+  nameInput.style.borderBottom = "2px solid red";
+  nameInput.placeholder = "Name requiered";
   nameInput.value = "";
   nameInput.addEventListener("keydown", () => {
-    nameInput.style.border = "1px solid black";
-    nameInput.style.borderRadius = "2px ";
+    nameInput.style.border = "none";
+    nameInput.style.borderBottom = "1px solid black";
   });
 };
 lastNameAlert = () => {
-  lastNameInput.style.border = "2px solid red";
-  lastNameInput.style.borderRadius = "2px ";
-  lastNameInput.placeholder = "REQUIERED";
+  lastNameInput.style.border = "none";
+  lastNameInput.style.borderBottom = "2px solid red";
+  lastNameInput.placeholder = "Last name requiered";
   lastNameInput.value = "";
   lastNameInput.addEventListener("keydown", () => {
-    lastNameInput.style.border = "1px solid black";
-    lastNameInput.style.borderRadius = "2px ";
+    lastNameInput.style.border = "none";
+    lastNameInput.style.borderBottom = "1px solid black";
   });
 };
 ageAlert = () => {
-  ageInput.style.border = "2px solid red";
-  ageInput.style.borderRadius = "2px ";
-  ageInput.placeholder = "REQUIERED";
+  ageInput.style.border = "none";
+  ageInput.style.borderBottom = "2px solid red";
+  ageInput.placeholder = "Age requiered";
   ageInput.value = "";
   ageInput.addEventListener("keydown", () => {
-    ageInput.style.border = "1px solid black";
-    ageInput.style.borderRadius = "2px ";
+    ageInput.style.border = "none";
+    ageInput.style.borderBottom = "1px solid black";
   });
 };
 phoneAlert = () => {
-  phoneInput.style.border = "2px solid red";
-  phoneInput.style.borderRadius = "2px ";
-  phoneInput.placeholder = "REQUIERED";
+  phoneInput.style.border = "none";
+  phoneInput.style.borderBottom = "2px solid red";
+  phoneInput.placeholder = "Phone requiered";
   phoneInput.value = "";
   phoneInput.addEventListener("keydown", () => {
-    phoneInput.style.border = "1px solid black";
-    phoneInput.style.borderRadius = "2px ";
+    phoneInput.style.border = "none";
+    phoneInput.style.borderBottom = "1px solid black";
   });
 };
 
 emailAlert = () => {
-  emailInput.style.border = "2px solid red";
-  emailInput.style.borderRadius = "2px ";
-  emailInput.placeholder = "REQUIERED";
+  emailInput.style.border = "none";
+  emailInput.style.borderBottom = "2px solid red";
+  emailInput.placeholder = "Email requiered";
   emailInput.value = "";
   emailInput.addEventListener("keydown", () => {
-    emailInput.style.border = "1px solid black";
-    emailInput.style.borderRadius = "2px ";
+    emailInput.style.border = "none";
+    emailInput.style.borderBottom = "1px solid black";
   });
 };
 
@@ -335,8 +355,7 @@ buttonSubmit.addEventListener("click", (e) => {
     emailInput.value === ""
   ) {
     alert("Required fields are not filled");
-  }
-  if (lastNameInput.value.length < 3 && nameInput.value.length < 3) {
+  } else if (lastNameInput.value.length < 3 && nameInput.value.length < 3) {
     alert("Name and LastName has to be at least 3 letters long");
     lastNameAlert();
     firstNameAlert();
@@ -363,8 +382,6 @@ buttonSubmit.addEventListener("click", (e) => {
   } else {
     const studentItem = document.createElement("div");
     const showButton = document.createElement("button");
-
-    showButton.type = "submit";
 
     for (let i = 0; i < 7; i++) {
       const studentInfo = document.createElement("p");
@@ -394,43 +411,48 @@ buttonSubmit.addEventListener("click", (e) => {
         studentInfo.textContent += `Group: ${radioValue}`;
       }
       let hiddenData = true;
-      showButton.textContent = "Show";
+      showButton.textContent = "SHOW";
       showButton.addEventListener("click", () => {
         if (i === 3 && hiddenData) {
-          showButton.textContent = "Hide";
+          showButton.textContent = "HIDE";
           studentInfo.innerHTML = "Phone:" + phoneInput.value;
         } else if (i === 3 && !hiddenData) {
-          showButton.textContent = "Show";
+          showButton.textContent = "SHOW";
           studentInfo.innerHTML = `Phone: ${secretPhoneSymbols}`;
         }
         if (i === 4 && hiddenData) {
-          showButton.textContent = "Hide";
+          showButton.textContent = "HIDE";
           studentInfo.innerHTML = "Email:" + emailInput.value;
         } else if (i === 4 && !hiddenData) {
-          showButton.textContent = "Show";
+          showButton.textContent = "SHOW";
           studentInfo.innerHTML = `Email: ${secretEmailSymbols}`;
         }
         hiddenData = !hiddenData;
       });
     }
 
-    studentItem.style.maxWidth = "200px";
-    studentItem.style.height = "125px";
+    studentItem.style.maxWidth = "400px";
+    studentItem.style.height = "250px";
 
+    studentItem.style.backgroundColor = "white";
     studentItem.style.margin = "auto";
-    studentItem.style.marginTop = "20px";
-    studentItem.style.border = "1px solid black";
-    studentItem.style.borderRadius = "5px ";
-    studentItem.style.padding = "8px ";
-    studentItem.style.fontSize = "7px ";
+    studentItem.style.marginTop = "15px";
+    studentItem.style.lineHeight = "10px";
 
-    showButton.style.margin = "auto";
+    studentItem.style.paddingTop = "15px ";
+    studentItem.style.paddingLeft = "20px ";
+
+    studentItem.style.fontSize = "15px ";
+
+    showButton.style.marginTop = "5px";
     showButton.style.width = "30%";
-    showButton.style.height = "12px";
-    showButton.style.fontSize = "7px";
-    showButton.style.display = "flex";
-    showButton.style.justifyContent = "center";
-
+    showButton.style.height = "20px";
+    showButton.style.fontSize = "10px";
+    showButton.style.border = "none";
+    showButton.style.outline = "none";
+    showButton.style.backgroundColor = "lightgray";
+    showButton.style.color = "white";
+    showButton.style.cursor = "pointer";
     container.append(studentItem);
     studentItem.append(showButton);
   }
