@@ -11,30 +11,36 @@ formContainer.style.marginTop = "50px";
 
 const nameItemContainer = document.createElement("div");
 const nameInput = document.createElement("input");
+nameInput.classList.add("input");
 const nameLabel = document.createElement("label");
 
 const lastNameItemContainer = document.createElement("div");
 const lastNameInput = document.createElement("input");
+lastNameInput.classList.add("input");
 const lastNameLabel = document.createElement("label");
 
 const ageItemContainer = document.createElement("div");
 const ageInput = document.createElement("input");
+ageInput.classList.add("input");
 const ageLabel = document.createElement("label");
 
 const phoneNumberContainer = document.createElement("div");
 const phoneInput = document.createElement("input");
+phoneInput.classList.add("input");
 const phoneLabel = document.createElement("label");
 
 const emailContainer = document.createElement("div");
 const emailInput = document.createElement("input");
+emailInput.classList.add("input");
 const emailLabel = document.createElement("label");
 
 const rangeContainer = document.getElementById("rangeContainer");
 const sliderElement = document.createElement("div");
-const rangeInput = document.getElementById("rangeInput");
 
+const rangeInput = document.getElementById("rangeInput");
 const rangeLabel = document.createElement("label");
 const rangeTicks = document.getElementById("ticks");
+rangeInput.classList.add("input");
 const radioButtonsMainContainer = document.createElement("div");
 
 radioButtonsMainContainer.classList.add("radioButton2");
@@ -60,6 +66,7 @@ headerTitle.style.fontSize = "25px";
 headerTitle.style.paddingLeft = "20px";
 
 const formInputs = document.createElement("div");
+formInputs.classList.add("form");
 formInputs.style.padding = "40px";
 formInputs.style.backgroundColor = "white";
 
@@ -150,8 +157,7 @@ function createAgeEl() {
   ageInput.style.borderBottom = "1px solid black";
   ageInput.style.marginBottom = "30px";
   ageInput.style.outline = "none";
-
-  ageInput.type = "number";
+  ageInput.type = "text";
   ageInput.placeholder = "Age*";
   ageInput.name = "ageLabel";
   ageInput.required;
@@ -168,7 +174,7 @@ function createPhoneEl() {
   phoneInput.style.marginBottom = "30px";
   phoneInput.style.outline = "none";
 
-  phoneInput.type = "number";
+  phoneInput.type = "text";
   phoneInput.placeholder = "Phone Nr.*";
   phoneInput.required;
   phoneInput.name = "phoneLabel";
@@ -243,6 +249,7 @@ function createRadioButton() {
   radioButtonsMainContainer.append(radioButtonsContainer);
   for (let i = 1; i <= 15; i++) {
     const radioInput = document.createElement("input");
+    radioInput.classList.add("input");
     const radioLabel = document.createElement("label");
 
     radioInput.type = "radio";
@@ -317,8 +324,53 @@ emailAlert = () => {
     emailInput.style.borderBottom = "1px solid black";
   });
 };
+nameInputStyle = () => {
+  nameInput.style.borderBottom = "3px solid green";
+  nameInput.readOnly = false;
+};
+lastNameInputStyle = () => {
+  lastNameInput.style.borderBottom = "3px solid green";
+  lastNameInput.readOnly = false;
+};
+ageInputStyle = () => {
+  ageInput.style.borderBottom = "3px solid green";
+  ageInput.readOnly = false;
+};
+phoneInputStyle = () => {
+  phoneInput.style.borderBottom = "3px solid green";
+  phoneInput.readOnly = false;
+};
+emailInputStyle = () => {
+  emailInput.style.borderBottom = "3px solid green";
+  emailInput.readOnly = false;
+};
 
+nameInputNoStyle = () => {
+  nameInput.style.borderBottom = "1px solid black";
+  nameInput.readOnly = true;
+};
+lastNameInputNoStyle = () => {
+  lastNameInput.style.borderBottom = "1px solid black";
+  lastNameInput.readOnly = true;
+};
+ageInputNoStyle = () => {
+  ageInput.style.borderBottom = "1px solid black";
+  ageInput.readOnly = true;
+};
+phoneInputNoStyle = () => {
+  phoneInput.style.borderBottom = "1px solid black";
+  phoneInput.readOnly = true;
+};
+emailInputNoStyle = () => {
+  emailInput.style.borderBottom = "1px solid black";
+  emailInput.readOnly = true;
+};
 buttonSubmit.addEventListener("click", (e) => {
+  // nameInput.readOnly = true;
+  // lastNameInput.readOnly = true;
+  // ageInput.readOnly = true;
+  // phoneInput.readOnly = true;
+  // emailInput.readOnly = true;
   const radioInput = document.getElementById("radioInput");
   e.preventDefault();
 
@@ -382,66 +434,102 @@ buttonSubmit.addEventListener("click", (e) => {
   } else {
     const studentItem = document.createElement("div");
     const showButton = document.createElement("button");
-
+    const removeStudent = document.createElement("button");
+    const removeMessage = document.createElement("span");
+    const changeInput = document.createElement("button");
+    const changedData = "";
     for (let i = 0; i < 7; i++) {
       const studentInfo = document.createElement("p");
+      studentInfo.setAttribute("id", `studentInfo`);
       studentItem.append(studentInfo);
       studentInfo.setAttribute("value", `${i}`);
 
       if (i === 0 && nameInput.value !== "") {
-        studentInfo.textContent += `Name: ${nameInput.value}`;
+        studentInfo.textContent += nameInput.value;
       }
       if (i === 1 && lastNameInput.value !== "") {
-        studentInfo.textContent += `Last name: ${lastNameInput.value}`;
+        studentInfo.textContent += ` ${lastNameInput.value}`;
       }
       if (i === 2 && ageInput.value !== "") {
-        studentInfo.textContent += `Age: ${ageInput.value}`;
+        studentInfo.textContent += ` ${ageInput.value}`;
       }
-
       if (i === 3 && phoneInput.value !== "") {
-        studentInfo.innerHTML += `Phone: ${secretPhoneSymbols}`;
+        studentInfo.innerHTML += `${secretPhoneSymbols}`;
       }
       if (i === 4 && emailInput.value !== "") {
-        studentInfo.textContent += `Email:${secretEmailSymbols}`;
+        studentInfo.textContent += `${secretEmailSymbols}`;
       }
       if (i === 5 && rangeTicks.checked !== "") {
-        studentInfo.textContent += `It knowledge: ${rangeInput.value}`;
+        studentInfo.textContent += `${rangeInput.value}`;
       }
       if (i === 6 && radioInput.checked !== "") {
-        studentInfo.textContent += `Group: ${radioValue}`;
+        studentInfo.textContent += `${radioValue}`;
       }
       let hiddenData = true;
       showButton.textContent = "SHOW";
       showButton.addEventListener("click", () => {
         if (i === 3 && hiddenData) {
           showButton.textContent = "HIDE";
-          studentInfo.innerHTML = "Phone:" + phoneInput.value;
+          studentInfo.innerHTML = phoneInput.value;
         } else if (i === 3 && !hiddenData) {
           showButton.textContent = "SHOW";
-          studentInfo.innerHTML = `Phone: ${secretPhoneSymbols}`;
+          studentInfo.innerHTML = ` ${secretPhoneSymbols}`;
         }
         if (i === 4 && hiddenData) {
           showButton.textContent = "HIDE";
-          studentInfo.innerHTML = "Email:" + emailInput.value;
+          studentInfo.innerHTML = emailInput.value;
         } else if (i === 4 && !hiddenData) {
           showButton.textContent = "SHOW";
-          studentInfo.innerHTML = `Email: ${secretEmailSymbols}`;
+          studentInfo.innerHTML = `${secretEmailSymbols}`;
         }
         hiddenData = !hiddenData;
       });
+      removeStudent.textContent = "Remove student";
+      removeStudent.addEventListener("click", () => {
+        container.prepend(removeMessage);
+        container.removeChild(studentItem);
+        removeMessage.textContent = `Student ${studentInfo.textContent} was removed`;
+        setTimeout(() => {
+          container.removeChild(removeMessage);
+        }, 5000);
+      });
     }
-
+    console.log(formInputs.value);
+    changeInput.textContent = "Change data";
+    const allInputs = document.querySelectorAll("input");
+    for (let i = 0; i < 7; i++) {
+      console.log(allInputs[i].value);
+    }
+    changeInput.addEventListener("click", () => {
+      if (changeInput.textContent === "Change data") {
+        changeInput.textContent = "Submit";
+        console.log(changeInput.textContent);
+        nameInputStyle();
+        lastNameInputStyle();
+        ageInputStyle();
+        phoneInputStyle();
+        emailInputStyle();
+      } else {
+        changeInput.textContent = "Change data";
+        console.log(changeInput.textContent);
+        for (let i = 0; i < 7; i++) {
+          studentInfo[i].textContent = allInputs[i].value;
+        }
+        nameInputNoStyle();
+        lastNameInputNoStyle();
+        ageInputNoStyle();
+        phoneInputNoStyle();
+        emailInputNoStyle();
+      }
+    });
     studentItem.style.maxWidth = "400px";
     studentItem.style.height = "250px";
-
     studentItem.style.backgroundColor = "white";
     studentItem.style.margin = "auto";
     studentItem.style.marginTop = "15px";
     studentItem.style.lineHeight = "10px";
-
     studentItem.style.paddingTop = "15px ";
     studentItem.style.paddingLeft = "20px ";
-
     studentItem.style.fontSize = "15px ";
 
     showButton.style.marginTop = "5px";
@@ -453,16 +541,44 @@ buttonSubmit.addEventListener("click", (e) => {
     showButton.style.backgroundColor = "lightgray";
     showButton.style.color = "white";
     showButton.style.cursor = "pointer";
-    container.append(studentItem);
-    studentItem.append(showButton);
+
+    removeStudent.style.marginTop = "5px";
+    removeStudent.style.marginLeft = "5px";
+    removeStudent.style.width = "30%";
+    removeStudent.style.height = "20px";
+    removeStudent.style.fontSize = "10px";
+    removeStudent.style.border = "none";
+    removeStudent.style.outline = "none";
+    removeStudent.style.backgroundColor = "lightgray";
+    removeStudent.style.color = "white";
+    removeStudent.style.cursor = "pointer";
+
+    removeMessage.style.marginTop = "20px";
+    removeMessage.style.fontSize = "20px";
+    removeMessage.style.display = "flex";
+    removeMessage.style.justifyContent = "center";
+
+    changeInput.style.marginTop = "5px";
+    changeInput.style.marginLeft = "5px";
+    changeInput.style.width = "30%";
+    changeInput.style.height = "20px";
+    changeInput.style.fontSize = "10px";
+    changeInput.style.border = "none";
+    changeInput.style.outline = "none";
+    changeInput.style.backgroundColor = "lightgray";
+    changeInput.style.color = "white";
+    changeInput.style.cursor = "pointer";
+
+    container.appendChild(studentItem);
+    studentItem.append(showButton, removeStudent, changeInput);
   }
+
   // nameInput.value = "";
   // lastNameInput.value = "";
   // emailInput.value = "";
   // ageInput.value = "";
   // phoneInput.value = "";
 });
-
 //CTR+C from internet
 function ticks(element) {
   if (
@@ -485,3 +601,60 @@ function ticks(element) {
 var lists = document.querySelectorAll("input[type=range][list]"),
   arr = Array.prototype.slice.call(lists);
 arr.forEach(ticks);
+
+const INITIAL_STUDENT_DATA = [
+  {
+    name: "Vardas1",
+    lastName: "Pavarde1",
+    age: 21,
+    phone: "+370611111111",
+    email: "aaa@gmail.com",
+    interests: ["javaScript", "PhP"],
+    group: "type11",
+    itKnowledge: 3,
+  },
+  {
+    name: "Vardas2",
+    lastName: "Pavarde2",
+    age: 22,
+    phone: "+37062222222",
+    email: "bbb@gmail.com",
+    interests: ["javaScript", "PhP"],
+    itKnowledge: 5,
+  },
+  {
+    name: "Vardas3",
+    lastName: "Pavarde3",
+    age: 23,
+    phone: "+37063333333",
+    email: "ccc@gmail.com",
+    interests: ["javaScript", "PhP"],
+    itKnowledge: 1,
+  },
+  {
+    name: "Vardas4",
+    lastName: "Pavarde4",
+    age: 24,
+    phone: "+37064444444",
+    email: "ddd@gmail.com",
+    interests: ["javaScript", "PhP"],
+    itKnowledge: 2,
+  },
+  {
+    name: "Vardas5",
+    lastName: "Pavarde5",
+    age: 25,
+    phone: "+37065555555",
+    email: "eee@gmail.com",
+    interests: ["javaScript", "PhP"],
+    itKnowledge: 4,
+  },
+];
+
+function renderInitialData(students) {
+  students.map((student) => {
+    console.log(student);
+    console.log(student.name);
+  });
+}
+renderInitialData(INITIAL_STUDENT_DATA);
