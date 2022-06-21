@@ -498,19 +498,16 @@ buttonSubmit.addEventListener("click", (e) => {
       const allInputs = document.querySelectorAll("input");
       if (changeInput.textContent === "Change data") {
         changeInput.textContent = "Submit";
-        console.log(changeInput.textContent);
-        for (let i = 0; i < 7; i++) {
-          console.log(allInputs[i].value);
-          studentInfo[i].textContent = allInputs[i].value;
-          console.log(studentInfo[i].textContent);
-        }
-        console.log(changeInput.textContent);
+
         nameInputStyle();
         lastNameInputStyle();
         ageInputStyle();
         phoneInputStyle();
         emailInputStyle();
       } else {
+        for (let i = 0; i < 7; i++) {
+          studentInfo[i].textContent = allInputs[i].value;
+        }
         changeInput.textContent = "Change data";
 
         nameInputNoStyle();
@@ -651,9 +648,6 @@ const INITIAL_STUDENT_DATA = [
 ];
 
 function renderInitialData(students) {
-  students.map((student) => {
-    console.log(student);
-    console.log(student.name);
-  });
+  students.map((student) => {});
 }
 renderInitialData(INITIAL_STUDENT_DATA);
