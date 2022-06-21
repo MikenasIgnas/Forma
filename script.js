@@ -347,31 +347,21 @@ emailInputStyle = () => {
 
 nameInputNoStyle = () => {
   nameInput.style.borderBottom = "1px solid black";
-  nameInput.readOnly = true;
 };
 lastNameInputNoStyle = () => {
   lastNameInput.style.borderBottom = "1px solid black";
-  lastNameInput.readOnly = true;
 };
 ageInputNoStyle = () => {
   ageInput.style.borderBottom = "1px solid black";
-  ageInput.readOnly = true;
 };
 phoneInputNoStyle = () => {
   phoneInput.style.borderBottom = "1px solid black";
-  phoneInput.readOnly = true;
 };
 emailInputNoStyle = () => {
   emailInput.style.borderBottom = "1px solid black";
-  emailInput.readOnly = true;
 };
 
 buttonSubmit.addEventListener("click", (e) => {
-  nameInput.readOnly = false;
-  lastNameInput.readOnly = false;
-  ageInput.readOnly = false;
-  phoneInput.readOnly = false;
-  emailInput.readOnly = false;
   const radioInput = document.getElementById("radioInput");
   e.preventDefault();
 
