@@ -104,9 +104,7 @@ function createForm() {
   createLastNameEl();
   createAgeEl();
   createPhoneEl();
-
   createRangeEl();
-
   createEmailEl();
   createRadioButton();
 }
@@ -324,43 +322,6 @@ emailAlert = () => {
     emailInput.style.borderBottom = "1px solid black";
   });
 };
-nameInputStyle = () => {
-  nameInput.style.borderBottom = "3px solid green";
-  nameInput.readOnly = false;
-};
-lastNameInputStyle = () => {
-  lastNameInput.style.borderBottom = "3px solid green";
-  lastNameInput.readOnly = false;
-};
-ageInputStyle = () => {
-  ageInput.style.borderBottom = "3px solid green";
-  ageInput.readOnly = false;
-};
-phoneInputStyle = () => {
-  phoneInput.style.borderBottom = "3px solid green";
-  phoneInput.readOnly = false;
-};
-emailInputStyle = () => {
-  emailInput.style.borderBottom = "3px solid green";
-  emailInput.readOnly = false;
-};
-
-nameInputNoStyle = () => {
-  nameInput.style.borderBottom = "1px solid black";
-};
-lastNameInputNoStyle = () => {
-  lastNameInput.style.borderBottom = "1px solid black";
-};
-ageInputNoStyle = () => {
-  ageInput.style.borderBottom = "1px solid black";
-};
-phoneInputNoStyle = () => {
-  phoneInput.style.borderBottom = "1px solid black";
-};
-
-emailInputNoStyle = () => {
-  emailInput.style.borderBottom = "1px solid black";
-};
 
 const createStudentInfo = (textContent, parent) => {
   const studentInfo = document.createElement("p");
@@ -369,17 +330,30 @@ const createStudentInfo = (textContent, parent) => {
 
   return studentInfo;
 };
+addStyleToElements = () => {
+  addStyle(nameInput);
+  addStyle(lastNameInput);
+  addStyle(ageInput);
+  addStyle(phoneInput);
+  addStyle(emailInput);
+};
 
-// addNoStyleToElements = () => {
-//   noStyle(emailInput);
-//   noStyle(phoneInput);
-// };
+addNoStyleToElements = () => {
+  noStyle(nameInput);
+  noStyle(lastNameInput);
+  noStyle(ageInput);
+  noStyle(phoneInput);
+  noStyle(emailInput);
+};
+addStyle = (element) => {
+  element.style.borderBottom = "3px solid green";
+  element.readOnly = false;
+};
+noStyle = (element) => {
+  element.style.borderBottom = "1px solid black";
+};
 
-// noStyle = (element) => {
-//   element.style.borderBottom = "1px solid black";
-// };
 buttonSubmit.addEventListener("click", (e) => {
-  const radioInput = document.getElementById("radioInput");
   e.preventDefault();
 
   let secretEmailSymbols = "";
@@ -481,15 +455,16 @@ buttonSubmit.addEventListener("click", (e) => {
 
     changeInput.textContent = "Change data";
     changeInput.addEventListener("click", () => {
-      // const allInputs = document.querySelectorAll("input");
       if (changeInput.textContent === "Change data") {
         changeInput.textContent = "Submit";
-
-        nameInputStyle();
-        lastNameInputStyle();
-        ageInputStyle();
-        phoneInputStyle();
-        emailInputStyle();
+        nameInput.value = nameInfo.textContent;
+        lastNameInput.value = lastNameInfo.textContent;
+        ageInput.value = ageInfo.textContent;
+        secretPhoneSymbols = phoneInfo.textContent;
+        secretEmailSymbols = emailInfo.textContent;
+        rangeInput.value = rangeInfo.textContent;
+        radioValue = radioInfo.textContent;
+        addStyleToElements();
       } else {
         nameInfo.textContent = nameInput.value;
         lastNameInfo.textContent = lastNameInput.value;
@@ -500,12 +475,7 @@ buttonSubmit.addEventListener("click", (e) => {
         radioInfo.textContent = radioValue;
 
         changeInput.textContent = "Change data";
-        nameInputNoStyle();
-        lastNameInputNoStyle();
-        ageInputNoStyle();
-        phoneInputNoStyle();
-        emailInputNoStyle();
-        // addNoStyleToElements();
+        addNoStyleToElements();
       }
     });
 
@@ -559,12 +529,6 @@ buttonSubmit.addEventListener("click", (e) => {
     container.appendChild(studentItem);
     studentItem.append(showButton, removeStudent, changeInput);
   }
-
-  // nameInput.value = "";
-  // lastNameInput.value = "";
-  // emailInput.value = "";
-  // ageInput.value = "";
-  // phoneInput.value = "";
 });
 //CTR+C from internet
 function ticks(element) {
@@ -588,57 +552,3 @@ function ticks(element) {
 var lists = document.querySelectorAll("input[type=range][list]"),
   arr = Array.prototype.slice.call(lists);
 arr.forEach(ticks);
-
-const INITIAL_STUDENT_DATA = [
-  {
-    name: "Vardas1",
-    lastName: "Pavarde1",
-    age: 21,
-    phone: "+370611111111",
-    email: "aaa@gmail.com",
-    interests: ["javaScript", "PhP"],
-    group: "type11",
-    itKnowledge: 3,
-  },
-  {
-    name: "Vardas2",
-    lastName: "Pavarde2",
-    age: 22,
-    phone: "+37062222222",
-    email: "bbb@gmail.com",
-    interests: ["javaScript", "PhP"],
-    itKnowledge: 5,
-  },
-  {
-    name: "Vardas3",
-    lastName: "Pavarde3",
-    age: 23,
-    phone: "+37063333333",
-    email: "ccc@gmail.com",
-    interests: ["javaScript", "PhP"],
-    itKnowledge: 1,
-  },
-  {
-    name: "Vardas4",
-    lastName: "Pavarde4",
-    age: 24,
-    phone: "+37064444444",
-    email: "ddd@gmail.com",
-    interests: ["javaScript", "PhP"],
-    itKnowledge: 2,
-  },
-  {
-    name: "Vardas5",
-    lastName: "Pavarde5",
-    age: 25,
-    phone: "+37065555555",
-    email: "eee@gmail.com",
-    interests: ["javaScript", "PhP"],
-    itKnowledge: 4,
-  },
-];
-
-function renderInitialData(students) {
-  students.map((student) => {});
-}
-renderInitialData(INITIAL_STUDENT_DATA);
