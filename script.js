@@ -357,10 +357,27 @@ ageInputNoStyle = () => {
 phoneInputNoStyle = () => {
   phoneInput.style.borderBottom = "1px solid black";
 };
+
 emailInputNoStyle = () => {
   emailInput.style.borderBottom = "1px solid black";
 };
 
+const createStudentInfo = (textContent, parent) => {
+  const studentInfo = document.createElement("p");
+  parent.append(studentInfo);
+  studentInfo.textContent = textContent;
+
+  return studentInfo;
+};
+
+// addNoStyleToElements = () => {
+//   noStyle(emailInput);
+//   noStyle(phoneInput);
+// };
+
+// noStyle = (element) => {
+//   element.style.borderBottom = "1px solid black";
+// };
 buttonSubmit.addEventListener("click", (e) => {
   const radioInput = document.getElementById("radioInput");
   e.preventDefault();
@@ -428,64 +445,43 @@ buttonSubmit.addEventListener("click", (e) => {
     const removeStudent = document.createElement("button");
     const removeMessage = document.createElement("span");
     const changeInput = document.createElement("button");
-    for (let i = 0; i < 7; i++) {
-      const studentInfo = document.createElement("p");
-      studentInfo.setAttribute("id", `studentInfo`);
-      studentItem.append(studentInfo);
-      studentInfo.setAttribute("value", `${i}`);
-      if (i === 0 && nameInput.value !== "") {
-        studentInfo.textContent += nameInput.value;
+
+    const nameInfo = createStudentInfo(nameInput.value, studentItem);
+    const lastNameInfo = createStudentInfo(lastNameInput.value, studentItem);
+    const ageInfo = createStudentInfo(ageInput.value, studentItem);
+    const phoneInfo = createStudentInfo(secretPhoneSymbols, studentItem);
+    const emailInfo = createStudentInfo(secretEmailSymbols, studentItem);
+    const rangeInfo = createStudentInfo(rangeInput.value, studentItem);
+    const radioInfo = createStudentInfo(radioValue, studentItem);
+
+    let hiddenData = true;
+    showButton.textContent = "SHOW";
+    showButton.addEventListener("click", () => {
+      if (hiddenData) {
+        showButton.textContent = "HIDE";
+        phoneInfo.innerHTML = phoneInput.value;
+        emailInfo.innerHTML = emailInput.value;
+      } else if (!hiddenData) {
+        showButton.textContent = "SHOW";
+        phoneInfo.innerHTML = ` ${secretPhoneSymbols}`;
+        emailInfo.innerHTML = `${secretEmailSymbols}`;
       }
-      if (i === 1 && lastNameInput.value !== "") {
-        studentInfo.textContent += ` ${lastNameInput.value}`;
-      }
-      if (i === 2 && ageInput.value !== "") {
-        studentInfo.textContent += ` ${ageInput.value}`;
-      }
-      if (i === 3 && phoneInput.value !== "") {
-        studentInfo.innerHTML += `${secretPhoneSymbols}`;
-      }
-      if (i === 4 && emailInput.value !== "") {
-        studentInfo.textContent += `${secretEmailSymbols}`;
-      }
-      if (i === 5 && rangeTicks.checked !== "") {
-        studentInfo.textContent += `${rangeInput.value}`;
-      }
-      if (i === 6 && radioInput.checked !== "") {
-        studentInfo.textContent += `${radioValue}`;
-      }
-      let hiddenData = true;
-      showButton.textContent = "SHOW";
-      showButton.addEventListener("click", () => {
-        if (i === 3 && hiddenData) {
-          showButton.textContent = "HIDE";
-          studentInfo.innerHTML = phoneInput.value;
-        } else if (i === 3 && !hiddenData) {
-          showButton.textContent = "SHOW";
-          studentInfo.innerHTML = ` ${secretPhoneSymbols}`;
-        }
-        if (i === 4 && hiddenData) {
-          showButton.textContent = "HIDE";
-          studentInfo.innerHTML = emailInput.value;
-        } else if (i === 4 && !hiddenData) {
-          showButton.textContent = "SHOW";
-          studentInfo.innerHTML = `${secretEmailSymbols}`;
-        }
-        hiddenData = !hiddenData;
-      });
-      removeStudent.textContent = "Remove student";
-      removeStudent.addEventListener("click", () => {
-        container.prepend(removeMessage);
-        container.removeChild(studentItem);
-        removeMessage.textContent = `Student ${studentInfo.textContent} was removed`;
-        setTimeout(() => {
-          container.removeChild(removeMessage);
-        }, 5000);
-      });
-    }
+      hiddenData = !hiddenData;
+    });
+    removeStudent.textContent = "Remove student";
+
+    removeStudent.addEventListener("click", () => {
+      container.prepend(removeMessage);
+      container.removeChild(studentItem);
+      removeMessage.textContent = `Student ${nameInfo.textContent} was removed`;
+      setTimeout(() => {
+        container.removeChild(removeMessage);
+      }, 5000);
+    });
+
     changeInput.textContent = "Change data";
     changeInput.addEventListener("click", () => {
-      const allInputs = document.querySelectorAll("input");
+      // const allInputs = document.querySelectorAll("input");
       if (changeInput.textContent === "Change data") {
         changeInput.textContent = "Submit";
 
@@ -495,16 +491,21 @@ buttonSubmit.addEventListener("click", (e) => {
         phoneInputStyle();
         emailInputStyle();
       } else {
-        for (let i = 0; i < 7; i++) {
-          studentInfo[i].textContent = allInputs[i].value;
-        }
-        changeInput.textContent = "Change data";
+        nameInfo.textContent = nameInput.value;
+        lastNameInfo.textContent = lastNameInput.value;
+        ageInfo.textContent = ageInput.value;
+        phoneInfo.textContent = secretPhoneSymbols;
+        emailInfo.textContent = secretEmailSymbols;
+        rangeInfo.textContent = rangeInput.value;
+        radioInfo.textContent = radioValue;
 
+        changeInput.textContent = "Change data";
         nameInputNoStyle();
         lastNameInputNoStyle();
         ageInputNoStyle();
         phoneInputNoStyle();
         emailInputNoStyle();
+        // addNoStyleToElements();
       }
     });
 
