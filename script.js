@@ -365,12 +365,13 @@ emailInputNoStyle = () => {
   emailInput.style.borderBottom = "1px solid black";
   emailInput.readOnly = true;
 };
+
 buttonSubmit.addEventListener("click", (e) => {
-  // nameInput.readOnly = true;
-  // lastNameInput.readOnly = true;
-  // ageInput.readOnly = true;
-  // phoneInput.readOnly = true;
-  // emailInput.readOnly = true;
+  nameInput.readOnly = false;
+  lastNameInput.readOnly = false;
+  ageInput.readOnly = false;
+  phoneInput.readOnly = false;
+  emailInput.readOnly = false;
   const radioInput = document.getElementById("radioInput");
   e.preventDefault();
 
@@ -437,13 +438,11 @@ buttonSubmit.addEventListener("click", (e) => {
     const removeStudent = document.createElement("button");
     const removeMessage = document.createElement("span");
     const changeInput = document.createElement("button");
-    const changedData = "";
     for (let i = 0; i < 7; i++) {
       const studentInfo = document.createElement("p");
       studentInfo.setAttribute("id", `studentInfo`);
       studentItem.append(studentInfo);
       studentInfo.setAttribute("value", `${i}`);
-
       if (i === 0 && nameInput.value !== "") {
         studentInfo.textContent += nameInput.value;
       }
@@ -494,15 +493,17 @@ buttonSubmit.addEventListener("click", (e) => {
         }, 5000);
       });
     }
-    console.log(formInputs.value);
     changeInput.textContent = "Change data";
-    const allInputs = document.querySelectorAll("input");
-    for (let i = 0; i < 7; i++) {
-      console.log(allInputs[i].value);
-    }
     changeInput.addEventListener("click", () => {
+      const allInputs = document.querySelectorAll("input");
       if (changeInput.textContent === "Change data") {
         changeInput.textContent = "Submit";
+        console.log(changeInput.textContent);
+        for (let i = 0; i < 7; i++) {
+          console.log(allInputs[i].value);
+          studentInfo[i].textContent = allInputs[i].value;
+          console.log(studentInfo[i].textContent);
+        }
         console.log(changeInput.textContent);
         nameInputStyle();
         lastNameInputStyle();
@@ -511,10 +512,7 @@ buttonSubmit.addEventListener("click", (e) => {
         emailInputStyle();
       } else {
         changeInput.textContent = "Change data";
-        console.log(changeInput.textContent);
-        for (let i = 0; i < 7; i++) {
-          studentInfo[i].textContent = allInputs[i].value;
-        }
+
         nameInputNoStyle();
         lastNameInputNoStyle();
         ageInputNoStyle();
@@ -522,6 +520,7 @@ buttonSubmit.addEventListener("click", (e) => {
         emailInputNoStyle();
       }
     });
+
     studentItem.style.maxWidth = "400px";
     studentItem.style.height = "250px";
     studentItem.style.backgroundColor = "white";
