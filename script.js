@@ -75,6 +75,24 @@ requiered.style.marginTop = "20px";
 requiered.style.fontSize = "13px";
 requiered.textContent = "*Requiered";
 
+const searchForm = document.createElement("Form");
+const searchInput = document.createElement("input");
+const searchButton = document.createElement("input");
+const selectElement = document.createElement("select");
+const nameOption = document.createElement("option");
+const lastNameOption = document.createElement("option");
+const ageOption = document.createElement("option");
+const phoneOption = document.createElement("option");
+const emailOption = document.createElement("option");
+selectElement.append(
+  nameOption,
+  lastNameOption,
+  ageOption,
+  phoneOption,
+  emailOption
+);
+searchForm.append(searchInput, selectElement, searchButton);
+
 formContainer.append(formHeader, formInputs);
 formInputs.append(
   nameItemContainer,
@@ -85,8 +103,44 @@ formInputs.append(
   rangeContainer,
   radioButtonsMainContainer,
   requiered,
-  submitButtonContainer
+  submitButtonContainer,
+  searchForm
 );
+searchForm.setAttribute("id", "searchForm");
+searchForm.style.height = "20px";
+searchForm.style.marginTop = "50px";
+searchForm.style.display = "flex";
+searchForm.style.justifyContent = "center";
+
+searchInput.style.width = "100%";
+searchInput.type = "text";
+searchInput.name = "search";
+searchInput.setAttribute("id", "searchInput");
+searchInput.placeholder = "Search for a student";
+searchInput.style.outline = "none";
+searchInput.style.border = "none";
+searchInput.style.borderBottom = "1px solid black";
+searchInput.style.width = "100%";
+
+searchButton.type = "submit";
+searchButton.value = "Search";
+searchButton.style.fontSize = "10px";
+searchButton.style.border = "none";
+searchButton.style.color = "white";
+searchButton.style.backgroundColor = "lightgray";
+searchButton.style.width = "20%";
+searchButton.style.marginLeft = "10px";
+
+nameOption.textContent = "Name";
+lastNameOption.textContent = "Last name";
+ageOption.textContent = "Age";
+phoneOption.textContent = "Phone";
+emailOption.textContent = "Email";
+selectElement.style.border = "none";
+selectElement.style.borderBottom = "1px solid black";
+selectElement.style.marginLeft = "10px";
+selectElement.style.outline = "none";
+console.log(selectElement.value);
 
 //
 function createForm() {
@@ -337,7 +391,6 @@ addStyleToElements = () => {
   addStyle(phoneInput);
   addStyle(emailInput);
 };
-
 addNoStyleToElements = () => {
   noStyle(nameInput);
   noStyle(lastNameInput);
@@ -365,6 +418,25 @@ buttonSubmit.addEventListener("click", (e) => {
   for (let i = 0; i < phoneInput.value.length; i++) {
     secretPhoneSymbols = `${secretPhoneSymbols}*`;
   }
+  const studentItem = document.createElement("div");
+  studentItem.classList.add("studentItem");
+  const showButton = document.createElement("button");
+  const removeStudent = document.createElement("button");
+  const removeMessage = document.createElement("span");
+  const changeInput = document.createElement("button");
+
+  const nameInfo = createStudentInfo(nameInput.value, studentItem);
+  nameInfo.classList.add("studentName");
+  const lastNameInfo = createStudentInfo(lastNameInput.value, studentItem);
+  lastNameInfo.classList.add("studentLastName");
+  const ageInfo = createStudentInfo(ageInput.value, studentItem);
+  ageInfo.classList.add("studentAge");
+  const rangeInfo = createStudentInfo(rangeInput.value, studentItem);
+  const radioInfo = createStudentInfo(radioValue, studentItem);
+  const phoneInfo = createStudentInfo(secretPhoneSymbols, studentItem);
+  phoneInfo.classList.add("studentPhone");
+  const emailInfo = createStudentInfo(secretEmailSymbols, studentItem);
+  emailInfo.classList.add("studentEmail");
 
   if (nameInput.value === "") {
     firstNameAlert();
@@ -414,20 +486,6 @@ buttonSubmit.addEventListener("click", (e) => {
     alert("Incorect Email (must contain @ and be atleast 5 symbols long)");
     emailAlert();
   } else {
-    const studentItem = document.createElement("div");
-    const showButton = document.createElement("button");
-    const removeStudent = document.createElement("button");
-    const removeMessage = document.createElement("span");
-    const changeInput = document.createElement("button");
-
-    const nameInfo = createStudentInfo(nameInput.value, studentItem);
-    const lastNameInfo = createStudentInfo(lastNameInput.value, studentItem);
-    const ageInfo = createStudentInfo(ageInput.value, studentItem);
-    const phoneInfo = createStudentInfo(secretPhoneSymbols, studentItem);
-    const emailInfo = createStudentInfo(secretEmailSymbols, studentItem);
-    const rangeInfo = createStudentInfo(rangeInput.value, studentItem);
-    const radioInfo = createStudentInfo(radioValue, studentItem);
-
     let hiddenData = true;
     showButton.textContent = "SHOW";
     showButton.addEventListener("click", () => {
@@ -530,6 +588,81 @@ buttonSubmit.addEventListener("click", (e) => {
     studentItem.append(showButton, removeStudent, changeInput);
   }
 });
+
+searchForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let formInputData = e.target.elements.search.value.toLowerCase().trim();
+  let studentItems = document.querySelectorAll(".studentItem");
+
+  studentItems.forEach((student) => {
+    let studentName = student
+      .querySelector(".studentName")
+      .textContent.toLowerCase();
+
+    let studentLastName = student
+      .querySelector(".studentLastName")
+      .textContent.toLowerCase();
+
+    let studentAge = student
+      .querySelector(".studentAge")
+      .textContent.toLowerCase();
+
+    let studentPhone = student
+      .querySelector(".studentPhone")
+      .textContent.toLowerCase();
+
+    let studentEmail = student
+      .querySelector(".studentEmail")
+      .textContent.toLowerCase();
+
+    if (selectElement.value === "Name") {
+      if (studentName.includes(formInputData)) {
+        student.style.display = "block";
+      } else {
+        student.style.display = "none";
+      }
+    } else if (selectElement.value === "Last name") {
+      if (studentLastName.includes(formInputData)) {
+        student.style.display = "block";
+      } else {
+        student.style.display = "none";
+      }
+    } else if (selectElement.value === "Age") {
+      if (studentAge.includes(formInputData)) {
+        student.style.display = "block";
+      } else {
+        student.style.display = "none";
+      }
+    } else if (selectElement.value === "Phone") {
+      if (studentPhone.includes(formInputData)) {
+        student.style.display = "block";
+      } else {
+        student.style.display = "none";
+      }
+    } else if (selectElement.value === "Email") {
+      if (studentEmail.includes(formInputData)) {
+        student.style.display = "block";
+      } else {
+        student.style.display = "none";
+      }
+    }
+
+    // if (studentLastName.includes(formInputData)) {
+    //   student.style.display = "block";
+    // } else {
+    //   student.style.display = "none";
+    // }
+    // if (
+    //   studentName.includes(formInputData) ||
+    //   studentLastName.includes(formInputData)
+    // ) {
+    //   student.style.display = "block";
+    // } else {
+    //   student.style.display = "none";
+    // }
+  });
+  searchInput.value = "";
+});
 //CTR+C from internet
 function ticks(element) {
   if (
@@ -552,3 +685,65 @@ function ticks(element) {
 var lists = document.querySelectorAll("input[type=range][list]"),
   arr = Array.prototype.slice.call(lists);
 arr.forEach(ticks);
+
+const initialData = [
+  {
+    name: "student1",
+    lastName: "lastName1",
+    age: 21,
+    Phone: "+37012345698",
+    email: "student1@gmail.com",
+    itKnowledge: 3,
+    group: "type11",
+  },
+  {
+    name: "student2",
+    lastName: "lastName2",
+    age: 22,
+    Phone: "+37011111111",
+    email: "student2@gmail.com",
+    itKnowledge: 5,
+    group: "type8",
+  },
+  {
+    name: "student3",
+    lastName: "lastName4",
+    age: 23,
+    Phone: "+370222222222",
+    email: "student2@gmail.com",
+    itKnowledge: 3,
+    group: "type5",
+  },
+  {
+    name: "student4",
+    lastName: "lastName4",
+    age: 23,
+    Phone: "+370333333333",
+    email: "student3@gmail.com",
+    itKnowledge: 1,
+    group: "type3",
+  },
+  {
+    name: "student5",
+    lastName: "lastName5",
+    age: 20,
+    Phone: "+3704444444444",
+    email: "student4@gmail.com",
+    itKnowledge: 4,
+    group: "type10",
+  },
+];
+
+function renderInitialData(students) {
+  students.map((student) => {
+    console.log(student.name);
+    console.log(student.lastName);
+    console.log(student.age);
+    console.log(student.Phone);
+    console.log(student.email);
+    console.log(student.itKnowledge);
+    console.log(student.group);
+    console.log("----------------------------");
+  });
+}
+// renderInitialData(initialData);
