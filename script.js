@@ -36,6 +36,7 @@ const emailLabel = document.createElement("label");
 
 const rangeContainer = document.getElementById("rangeContainer");
 const sliderElement = document.createElement("div");
+sliderElement.classList.add("sliderElement");
 
 const rangeInput = document.getElementById("rangeInput");
 const rangeLabel = document.createElement("label");
@@ -84,15 +85,74 @@ const lastNameOption = document.createElement("option");
 const ageOption = document.createElement("option");
 const phoneOption = document.createElement("option");
 const emailOption = document.createElement("option");
+const groupOption = document.createElement("option");
+const interestOption = document.createElement("option");
+
+const interestContainer = document.createElement("div");
+interestContainer.style.width = "100%";
+interestContainer.style.height = "70px";
+interestContainer.style.marginTop = "20px";
+interestContainer.style.marginBottom = "20px";
+
+const interestContainerTitle = document.createElement("p");
+interestContainerTitle.textContent = "Interests:";
+interestContainerTitle.style.fontSize = "20px";
+
+const checkboxContainer = document.createElement("div");
+checkboxContainer.style.display = "flex";
+checkboxContainer.style.justifyContent = "space-around";
+checkboxContainer.style.alignItems = "center";
+
+const checkBox1 = document.createElement("input");
+const checkBox2 = document.createElement("input");
+const checkBox3 = document.createElement("input");
+const checkBox4 = document.createElement("input");
+const checkBox1Label = document.createElement("label");
+const checkBox2Label = document.createElement("label");
+const checkBox3Label = document.createElement("label");
+const checkBox4Label = document.createElement("label");
+
+interestCheckBoxes = (element, name, value) => {
+  element.type = "checkbox";
+  element.name = name;
+  element.value = value;
+};
+interestCheckBoxLabels = (element, textContent, labelName) => {
+  element.style.fontSize = "15px";
+  element.textContent = textContent;
+  element.htmlFor = labelName;
+};
+interestCheckBoxes(checkBox1, "checkBox", "JAVA");
+interestCheckBoxes(checkBox2, "checkBox", "JavaScript");
+interestCheckBoxes(checkBox3, "checkBox", "C++");
+interestCheckBoxes(checkBox4, "checkBox", "Python");
+
+interestCheckBoxLabels(checkBox1Label, "JAVA");
+interestCheckBoxLabels(checkBox2Label, "JavaScript");
+interestCheckBoxLabels(checkBox3Label, "C++");
+interestCheckBoxLabels(checkBox4Label, "Python");
+
+interestContainer.append(interestContainerTitle, checkboxContainer);
+checkboxContainer.append(
+  checkBox1Label,
+  checkBox1,
+  checkBox2Label,
+  checkBox2,
+  checkBox3Label,
+  checkBox3,
+  checkBox4Label,
+  checkBox4
+);
 selectElement.append(
   nameOption,
   lastNameOption,
   ageOption,
   phoneOption,
-  emailOption
+  emailOption,
+  groupOption,
+  interestOption
 );
 searchForm.append(searchInput, selectElement, searchButton);
-
 formContainer.append(formHeader, formInputs);
 formInputs.append(
   nameItemContainer,
@@ -102,47 +162,27 @@ formInputs.append(
   emailContainer,
   rangeContainer,
   radioButtonsMainContainer,
+  interestContainer,
   requiered,
   submitButtonContainer,
   searchForm
 );
-searchForm.setAttribute("id", "searchForm");
-searchForm.style.height = "20px";
-searchForm.style.marginTop = "50px";
-searchForm.style.display = "flex";
-searchForm.style.justifyContent = "center";
 
-searchInput.style.width = "100%";
-searchInput.type = "text";
-searchInput.name = "search";
-searchInput.setAttribute("id", "searchInput");
-searchInput.placeholder = "Search for a student";
-searchInput.style.outline = "none";
-searchInput.style.border = "none";
-searchInput.style.borderBottom = "1px solid black";
-searchInput.style.width = "100%";
+searchFormFunction(searchForm, searchInput, searchButton);
 
-searchButton.type = "submit";
-searchButton.value = "Search";
-searchButton.style.fontSize = "10px";
-searchButton.style.border = "none";
-searchButton.style.color = "white";
-searchButton.style.backgroundColor = "lightgray";
-searchButton.style.width = "20%";
-searchButton.style.marginLeft = "10px";
+slectOption(nameOption, "Name");
+slectOption(lastNameOption, "Last name");
+slectOption(ageOption, "Age");
+slectOption(phoneOption, "Phone");
+slectOption(emailOption, "Email");
+slectOption(groupOption, "Group");
+slectOption(interestOption, "Interest");
+selectElementStyle(selectElement);
 
-nameOption.textContent = "Name";
-lastNameOption.textContent = "Last name";
-ageOption.textContent = "Age";
-phoneOption.textContent = "Phone";
-emailOption.textContent = "Email";
-selectElement.style.border = "none";
-selectElement.style.borderBottom = "1px solid black";
-selectElement.style.marginLeft = "10px";
-selectElement.style.outline = "none";
-console.log(selectElement.value);
+sliderElement.style.marginTop = "20px";
+sliderElement.style.width = "100%";
 
-//
+submitButtonFunction(submitButton, submitButtonContainer);
 function createForm() {
   container.append(formContainer);
   formHeader.append(headerTitle);
@@ -154,146 +194,46 @@ function createForm() {
   rangeContainer.append(rangeLabel, sliderElement);
   sliderElement.append(rangeInput, rangeTicks);
   submitButtonContainer.append(submitButton, submitButtonLabel);
-  createNameEl();
-  createLastNameEl();
-  createAgeEl();
-  createPhoneEl();
-  createRangeEl();
-  createEmailEl();
+  createElement(nameItemContainer, nameInput, "text", "Name*", "nameLabel");
+  createElement(
+    lastNameItemContainer,
+    lastNameInput,
+    "text",
+    "Last Name*",
+    "lastNameLabel"
+  );
+  createElement(ageItemContainer, ageInput, "number", "Age*", "ageLabel");
+  createElement(
+    phoneNumberContainer,
+    phoneInput,
+    "number",
+    "Phone Nr.*",
+    "phoneLabel"
+  );
+  createElement(emailContainer, emailInput, "email", "Email*", "emailLabel");
+  createRangeEl(rangeContainer, rangeLabel, rangeInput);
   createRadioButton();
 }
 createForm();
-
-//NAME
-
-function createNameEl() {
-  nameItemContainer.style.marginBottom = "10px";
-
-  nameInput.style.display = "block";
-  nameInput.style.width = "100%";
-  nameInput.style.height = "40px";
-  nameInput.style.border = "none";
-  nameInput.style.borderBottom = "1px solid black";
-  nameInput.style.outline = "none";
-  nameInput.style.marginBottom = "30px";
-
-  nameInput.type = "text";
-  nameInput.placeholder = "Name*";
-  nameInput.name = "nameLabel";
-  nameInput.required;
-}
-//LAST NAME
-function createLastNameEl() {
-  lastNameItemContainer.style.marginBottom = "10px";
-  lastNameInput.style.display = "block";
-  lastNameInput.style.width = "100%";
-  lastNameInput.style.height = "40px";
-  lastNameInput.style.border = "none";
-  lastNameInput.style.borderBottom = "1px solid black";
-  lastNameInput.style.marginBottom = "30px";
-  lastNameInput.style.outline = "none";
-
-  lastNameInput.type = "text";
-  lastNameInput.placeholder = "Last Name*";
-  lastNameInput.name = "lastNameLabel";
-  lastNameInput.required;
-}
-//AGE
-function createAgeEl() {
-  ageItemContainer.style.marginBottom = "10px";
-
-  ageInput.style.display = "block";
-  ageInput.style.width = "100%";
-  ageInput.style.height = "40px";
-  ageInput.style.border = "none";
-  ageInput.style.borderBottom = "1px solid black";
-  ageInput.style.marginBottom = "30px";
-  ageInput.style.outline = "none";
-  ageInput.type = "text";
-  ageInput.placeholder = "Age*";
-  ageInput.name = "ageLabel";
-  ageInput.required;
-}
-//PHONE
-function createPhoneEl() {
-  phoneNumberContainer.style.marginBottom = "10px";
-
-  phoneInput.style.display = "block";
-  phoneInput.style.width = "100%";
-  phoneInput.style.height = "40px";
-  phoneInput.style.border = "none";
-  phoneInput.style.borderBottom = "1px solid black";
-  phoneInput.style.marginBottom = "30px";
-  phoneInput.style.outline = "none";
-
-  phoneInput.type = "text";
-  phoneInput.placeholder = "Phone Nr.*";
-  phoneInput.required;
-  phoneInput.name = "phoneLabel";
-}
-//EMAIL
-function createEmailEl() {
-  emailContainer.style.marginBottom = "10px";
-
-  emailInput.style.display = "block";
-  emailInput.style.width = "100%";
-  emailInput.style.height = "40px";
-  emailInput.style.border = "none";
-  emailInput.style.borderBottom = "1px solid black";
-  emailInput.style.outline = "none";
-
-  emailInput.type = "email";
-  emailInput.placeholder = "Email*";
-  emailInput.name = "emailLabel";
-  emailInput.required;
-}
-
-//RANGE\
-function createRangeEl() {
-  rangeContainer.style.marginTop = "30px";
-  rangeLabel.htmlFor = "rangeInput";
-  rangeLabel.innerHTML = "Grade your IT knowledge*: ";
-  rangeInput.style.display = "block";
-  rangeLabel.style.width = "100%";
-  rangeLabel.style.marginTop = "50px";
-  rangeLabel.style.fontSize = "20px";
-}
-
-//RADIO BUTTONS
-radioButtonsMainContainer.style.fontSize = "20px";
-radioButtonsMainContainer.style.marginTop = "30px";
-
-sliderElement.style.marginTop = "20px";
-sliderElement.style.width = "100%";
-
-//SUBMIT
-
-submitButton.innerHTML = "SUBMIT";
-submitButton.style.width = "40%";
-submitButton.style.height = "35px";
-submitButton.style.border = "none";
-submitButton.style.backgroundColor = "lightgray";
-submitButton.style.color = "white";
-submitButton.style.cursor = "pointer";
-submitButton.style.fontSize = "15px";
-submitButton.style.lineHeight = "35px";
-submitButton.style.textAlign = "center";
-submitButton.style.outline = "none";
-
-submitButtonContainer.style.margin = "auto";
-submitButtonContainer.style.textAlign = "center";
-submitButtonContainer.style.marginTop = "10px";
-
 let radioValue;
-
 function setRadioValue(e) {
   if (e.target.checked) {
     radioValue = e.target.value;
   }
 }
-
+function setCheckBoxValue() {
+  let checkboxValue = "";
+  let checkBoxes = document.getElementsByName("checkBox");
+  for (let i = 0; i < checkBoxes.length; i++) {
+    if (checkBoxes[i].checked) checkboxValue += checkBoxes[i].value + " ";
+  }
+  return checkboxValue;
+}
+checkboxContainer.addEventListener("click", setCheckBoxValue);
 function createRadioButton() {
   const radioButtonsContainer = document.createElement("div");
+  radioButtonsMainContainer.style.fontSize = "20px";
+  radioButtonsMainContainer.style.marginTop = "30px";
   radioButtonsContainer.classList.add("radioButton");
   radioButtonsContainer.style.fontSize = "10px";
   radioButtonsContainer.style.marginTop = "10px";
@@ -303,18 +243,14 @@ function createRadioButton() {
     const radioInput = document.createElement("input");
     radioInput.classList.add("input");
     const radioLabel = document.createElement("label");
-
     radioInput.type = "radio";
     radioInput.setAttribute("value", `TYPE ${i}gr`);
     radioInput.name = `radioLabel`;
     radioInput.setAttribute("Id", "radioInput");
     radioLabel.innerHTML = `TYPE ${i}gr:`;
-
     radioInput.addEventListener("click", setRadioValue);
-
     radioInput.style.width = "20px";
     radioInput.style.height = "20px";
-
     radioButtonsContainer.style.textAlign = "center";
     radioButtonsContainer.style.alignItems = "center";
     radioButtonsContainer.style.marginTop = "25px";
@@ -323,66 +259,23 @@ function createRadioButton() {
     radioButtonsContainer.append(radioLabel, radioInput);
   }
 }
+
 const buttonSubmit = document.getElementById("submitButton");
-
-firstNameAlert = () => {
-  nameInput.style.border = "none";
-  nameInput.style.borderBottom = "2px solid red";
-  nameInput.placeholder = "Name requiered";
-  nameInput.value = "";
-  nameInput.addEventListener("keydown", () => {
-    nameInput.style.border = "none";
-    nameInput.style.borderBottom = "1px solid black";
-  });
-};
-lastNameAlert = () => {
-  lastNameInput.style.border = "none";
-  lastNameInput.style.borderBottom = "2px solid red";
-  lastNameInput.placeholder = "Last name requiered";
-  lastNameInput.value = "";
-  lastNameInput.addEventListener("keydown", () => {
-    lastNameInput.style.border = "none";
-    lastNameInput.style.borderBottom = "1px solid black";
-  });
-};
-ageAlert = () => {
-  ageInput.style.border = "none";
-  ageInput.style.borderBottom = "2px solid red";
-  ageInput.placeholder = "Age requiered";
-  ageInput.value = "";
-  ageInput.addEventListener("keydown", () => {
-    ageInput.style.border = "none";
-    ageInput.style.borderBottom = "1px solid black";
-  });
-};
-phoneAlert = () => {
-  phoneInput.style.border = "none";
-  phoneInput.style.borderBottom = "2px solid red";
-  phoneInput.placeholder = "Phone requiered";
-  phoneInput.value = "";
-  phoneInput.addEventListener("keydown", () => {
-    phoneInput.style.border = "none";
-    phoneInput.style.borderBottom = "1px solid black";
-  });
-};
-
-emailAlert = () => {
-  emailInput.style.border = "none";
-  emailInput.style.borderBottom = "2px solid red";
-  emailInput.placeholder = "Email requiered";
-  emailInput.value = "";
-  emailInput.addEventListener("keydown", () => {
-    emailInput.style.border = "none";
-    emailInput.style.borderBottom = "1px solid black";
-  });
-};
-
-const createStudentInfo = (textContent, parent) => {
+const createStudentInfo = (textContent, parent, addClass) => {
   const studentInfo = document.createElement("p");
+  studentInfo.classList.add(addClass);
   parent.append(studentInfo);
   studentInfo.textContent = textContent;
 
   return studentInfo;
+};
+
+addNoStyleToElements = () => {
+  noStyle(nameInput);
+  noStyle(lastNameInput);
+  noStyle(ageInput);
+  noStyle(phoneInput);
+  noStyle(emailInput);
 };
 addStyleToElements = () => {
   addStyle(nameInput);
@@ -391,29 +284,14 @@ addStyleToElements = () => {
   addStyle(phoneInput);
   addStyle(emailInput);
 };
-addNoStyleToElements = () => {
-  noStyle(nameInput);
-  noStyle(lastNameInput);
-  noStyle(ageInput);
-  noStyle(phoneInput);
-  noStyle(emailInput);
-};
-addStyle = (element) => {
-  element.style.borderBottom = "3px solid green";
-  element.readOnly = false;
-};
-noStyle = (element) => {
-  element.style.borderBottom = "1px solid black";
-};
 
 buttonSubmit.addEventListener("click", (e) => {
   e.preventDefault();
-
+  const checkboxValue = setCheckBoxValue();
   let secretEmailSymbols = "";
   for (let i = 0; i < emailInput.value.length; i++) {
     secretEmailSymbols = `${secretEmailSymbols}*`;
   }
-
   let secretPhoneSymbols = "";
   for (let i = 0; i < phoneInput.value.length; i++) {
     secretPhoneSymbols = `${secretPhoneSymbols}*`;
@@ -424,35 +302,47 @@ buttonSubmit.addEventListener("click", (e) => {
   const removeStudent = document.createElement("button");
   const removeMessage = document.createElement("span");
   const changeInput = document.createElement("button");
+  const nameInfo = createStudentInfo(
+    nameInput.value,
+    studentItem,
+    "studentName"
+  );
 
-  const nameInfo = createStudentInfo(nameInput.value, studentItem);
-  nameInfo.classList.add("studentName");
-  const lastNameInfo = createStudentInfo(lastNameInput.value, studentItem);
-  lastNameInfo.classList.add("studentLastName");
-  const ageInfo = createStudentInfo(ageInput.value, studentItem);
-  ageInfo.classList.add("studentAge");
-  const rangeInfo = createStudentInfo(rangeInput.value, studentItem);
-  const radioInfo = createStudentInfo(radioValue, studentItem);
-  const phoneInfo = createStudentInfo(secretPhoneSymbols, studentItem);
-  phoneInfo.classList.add("studentPhone");
-  const emailInfo = createStudentInfo(secretEmailSymbols, studentItem);
-  emailInfo.classList.add("studentEmail");
+  const lastNameInfo = createStudentInfo(
+    lastNameInput.value,
+    studentItem,
+    "studentLastName"
+  );
 
-  if (nameInput.value === "") {
-    firstNameAlert();
-  }
-  if (lastNameInput.value === "") {
-    lastNameAlert();
-  }
-  if (ageInput.value === "") {
-    ageAlert();
-  }
-  if (phoneInput.value === "") {
-    phoneAlert();
-  }
-  if (emailInput.value === "") {
-    emailAlert();
-  }
+  const ageInfo = createStudentInfo(ageInput.value, studentItem, "studentAge");
+
+  const phoneInfo = createStudentInfo(
+    secretPhoneSymbols,
+    studentItem,
+    "studentPhone"
+  );
+
+  const emailInfo = createStudentInfo(
+    secretEmailSymbols,
+    studentItem,
+    "studentEmail"
+  );
+
+  const rangeInfo = createStudentInfo(
+    rangeInput.value,
+    studentItem,
+    "studentRangeInfo"
+  );
+  const radioInfo = createStudentInfo(
+    radioValue,
+    studentItem,
+    "studentRadioInfo"
+  );
+  const interests = createStudentInfo(
+    checkboxValue,
+    studentItem,
+    "studentInterests"
+  );
   if (
     nameInput.value === "" &&
     lastNameInput.value === "" &&
@@ -461,30 +351,35 @@ buttonSubmit.addEventListener("click", (e) => {
     emailInput.value === ""
   ) {
     alert("Required fields are not filled");
+    inputAlert(nameInput, "Name requiered");
+    inputAlert(lastNameInput, "Last name requiered");
+    inputAlert(ageInput, "Age requiered");
+    inputAlert(phoneInput, "Phone requiered");
+    inputAlert(emailInput, "Email requiered");
   } else if (lastNameInput.value.length < 3 && nameInput.value.length < 3) {
     alert("Name and LastName has to be at least 3 letters long");
-    lastNameAlert();
-    firstNameAlert();
+    inputAlert(lastNameInput, "Last name requiered");
+    inputAlert(nameInput, "Name requiered");
   } else if (nameInput.value.length < 3) {
     alert("Name has to be atleast 3 letters long");
-    firstNameAlert();
+    inputAlert(nameInput, "Name requiered");
   } else if (lastNameInput.value.length < 3) {
     alert("LastName has to be atleast 3 letters long");
-    lastNameAlert();
+    inputAlert(lastNameInput, "Last name requiered");
   } else if (ageInput.value <= 0) {
     alert(
       "Age must be a positive number (Must be more than 0 and less than 120)"
     );
-    ageAlert();
+    inputAlert(ageInput, "Age requiered");
   } else if (ageInput.value >= 120) {
     alert("Age is invalid (Must be more than 0 and less than 120)");
-    ageAlert();
+    inputAlert(ageInput, "Age requiered");
   } else if (phoneInput.value.length < 9 || phoneInput.value.length > 12) {
     alert("Incorect phone number (Must be between 9 and 12 numbers)");
-    phoneAlert();
+    inputAlert(phoneInput, "Phone requiered");
   } else if (emailInput.value.length < 5 || !emailInput.value.includes("@")) {
     alert("Incorect Email (must contain @ and be atleast 5 symbols long)");
-    emailAlert();
+    inputAlert(emailInput, "Email requiered");
   } else {
     let hiddenData = true;
     showButton.textContent = "SHOW";
@@ -501,7 +396,6 @@ buttonSubmit.addEventListener("click", (e) => {
       hiddenData = !hiddenData;
     });
     removeStudent.textContent = "Remove student";
-
     removeStudent.addEventListener("click", () => {
       container.prepend(removeMessage);
       container.removeChild(studentItem);
@@ -510,7 +404,6 @@ buttonSubmit.addEventListener("click", (e) => {
         container.removeChild(removeMessage);
       }, 5000);
     });
-
     changeInput.textContent = "Change data";
     changeInput.addEventListener("click", () => {
       if (changeInput.textContent === "Change data") {
@@ -531,59 +424,15 @@ buttonSubmit.addEventListener("click", (e) => {
         emailInfo.textContent = secretEmailSymbols;
         rangeInfo.textContent = rangeInput.value;
         radioInfo.textContent = radioValue;
-
         changeInput.textContent = "Change data";
         addNoStyleToElements();
       }
     });
-
-    studentItem.style.maxWidth = "400px";
-    studentItem.style.height = "250px";
-    studentItem.style.backgroundColor = "white";
-    studentItem.style.margin = "auto";
-    studentItem.style.marginTop = "15px";
-    studentItem.style.lineHeight = "10px";
-    studentItem.style.paddingTop = "15px ";
-    studentItem.style.paddingLeft = "20px ";
-    studentItem.style.fontSize = "15px ";
-
-    showButton.style.marginTop = "5px";
-    showButton.style.width = "30%";
-    showButton.style.height = "20px";
-    showButton.style.fontSize = "10px";
-    showButton.style.border = "none";
-    showButton.style.outline = "none";
-    showButton.style.backgroundColor = "lightgray";
-    showButton.style.color = "white";
-    showButton.style.cursor = "pointer";
-
-    removeStudent.style.marginTop = "5px";
-    removeStudent.style.marginLeft = "5px";
-    removeStudent.style.width = "30%";
-    removeStudent.style.height = "20px";
-    removeStudent.style.fontSize = "10px";
-    removeStudent.style.border = "none";
-    removeStudent.style.outline = "none";
-    removeStudent.style.backgroundColor = "lightgray";
-    removeStudent.style.color = "white";
-    removeStudent.style.cursor = "pointer";
-
-    removeMessage.style.marginTop = "20px";
-    removeMessage.style.fontSize = "20px";
-    removeMessage.style.display = "flex";
-    removeMessage.style.justifyContent = "center";
-
-    changeInput.style.marginTop = "5px";
-    changeInput.style.marginLeft = "5px";
-    changeInput.style.width = "30%";
-    changeInput.style.height = "20px";
-    changeInput.style.fontSize = "10px";
-    changeInput.style.border = "none";
-    changeInput.style.outline = "none";
-    changeInput.style.backgroundColor = "lightgray";
-    changeInput.style.color = "white";
-    changeInput.style.cursor = "pointer";
-
+    studentItemBox(studentItem);
+    studentItemBoxButtonStyles(showButton);
+    studentItemBoxButtonStyles(removeStudent);
+    studentItemBoxButtonStyles(changeInput);
+    removeMessageText(removeMessage);
     container.appendChild(studentItem);
     studentItem.append(showButton, removeStudent, changeInput);
   }
@@ -591,79 +440,43 @@ buttonSubmit.addEventListener("click", (e) => {
 
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  let formInputData = e.target.elements.search.value.toLowerCase().trim();
-  let studentItems = document.querySelectorAll(".studentItem");
-
-  studentItems.forEach((student) => {
-    let studentName = student
-      .querySelector(".studentName")
-      .textContent.toLowerCase();
-
-    let studentLastName = student
-      .querySelector(".studentLastName")
-      .textContent.toLowerCase();
-
-    let studentAge = student
-      .querySelector(".studentAge")
-      .textContent.toLowerCase();
-
-    let studentPhone = student
-      .querySelector(".studentPhone")
-      .textContent.toLowerCase();
-
-    let studentEmail = student
-      .querySelector(".studentEmail")
-      .textContent.toLowerCase();
-
-    if (selectElement.value === "Name") {
-      if (studentName.includes(formInputData)) {
-        student.style.display = "block";
-      } else {
-        student.style.display = "none";
-      }
-    } else if (selectElement.value === "Last name") {
-      if (studentLastName.includes(formInputData)) {
-        student.style.display = "block";
-      } else {
-        student.style.display = "none";
-      }
-    } else if (selectElement.value === "Age") {
-      if (studentAge.includes(formInputData)) {
-        student.style.display = "block";
-      } else {
-        student.style.display = "none";
-      }
-    } else if (selectElement.value === "Phone") {
-      if (studentPhone.includes(formInputData)) {
-        student.style.display = "block";
-      } else {
-        student.style.display = "none";
-      }
-    } else if (selectElement.value === "Email") {
-      if (studentEmail.includes(formInputData)) {
+  searchfunction = (option, student, studentInfo) => {
+    let formInputData = e.target.elements.search.value.toLowerCase().trim();
+    let searchVariation = e.target.elements.variations.value;
+    if (searchVariation === option) {
+      if (studentInfo.includes(formInputData)) {
         student.style.display = "block";
       } else {
         student.style.display = "none";
       }
     }
-
-    // if (studentLastName.includes(formInputData)) {
-    //   student.style.display = "block";
-    // } else {
-    //   student.style.display = "none";
-    // }
-    // if (
-    //   studentName.includes(formInputData) ||
-    //   studentLastName.includes(formInputData)
-    // ) {
-    //   student.style.display = "block";
-    // } else {
-    //   student.style.display = "none";
-    // }
+  };
+  myfunction = (student, className) => {
+    studentInputInfo = student
+      .querySelector(className)
+      .textContent.toLowerCase();
+    return studentInputInfo;
+  };
+  let studentItems = document.querySelectorAll(".studentItem");
+  studentItems.forEach((student) => {
+    let studentName = myfunction(student, ".studentName");
+    let studentLastName = myfunction(student, ".studentLastName");
+    let studentAge = myfunction(student, ".studentAge");
+    let studentPhone = myfunction(student, ".studentPhone");
+    let studentEmail = myfunction(student, ".studentEmail");
+    let studentGroup = myfunction(student, ".studentRadioInfo");
+    let studentInterests = myfunction(student, ".studentInterests");
+    searchfunction("Name", student, studentName);
+    searchfunction("Last name", student, studentLastName);
+    searchfunction("Age", student, studentAge);
+    searchfunction("Phone", student, studentPhone);
+    searchfunction("Email", student, studentEmail);
+    searchfunction("Group", student, studentGroup);
+    searchfunction("Interest", student, studentInterests);
   });
   searchInput.value = "";
 });
-//CTR+C from internet
+
 function ticks(element) {
   if (
     element.hasOwnProperty("list") &&
@@ -685,65 +498,3 @@ function ticks(element) {
 var lists = document.querySelectorAll("input[type=range][list]"),
   arr = Array.prototype.slice.call(lists);
 arr.forEach(ticks);
-
-const initialData = [
-  {
-    name: "student1",
-    lastName: "lastName1",
-    age: 21,
-    Phone: "+37012345698",
-    email: "student1@gmail.com",
-    itKnowledge: 3,
-    group: "type11",
-  },
-  {
-    name: "student2",
-    lastName: "lastName2",
-    age: 22,
-    Phone: "+37011111111",
-    email: "student2@gmail.com",
-    itKnowledge: 5,
-    group: "type8",
-  },
-  {
-    name: "student3",
-    lastName: "lastName4",
-    age: 23,
-    Phone: "+370222222222",
-    email: "student2@gmail.com",
-    itKnowledge: 3,
-    group: "type5",
-  },
-  {
-    name: "student4",
-    lastName: "lastName4",
-    age: 23,
-    Phone: "+370333333333",
-    email: "student3@gmail.com",
-    itKnowledge: 1,
-    group: "type3",
-  },
-  {
-    name: "student5",
-    lastName: "lastName5",
-    age: 20,
-    Phone: "+3704444444444",
-    email: "student4@gmail.com",
-    itKnowledge: 4,
-    group: "type10",
-  },
-];
-
-function renderInitialData(students) {
-  students.map((student) => {
-    console.log(student.name);
-    console.log(student.lastName);
-    console.log(student.age);
-    console.log(student.Phone);
-    console.log(student.email);
-    console.log(student.itKnowledge);
-    console.log(student.group);
-    console.log("----------------------------");
-  });
-}
-// renderInitialData(initialData);
