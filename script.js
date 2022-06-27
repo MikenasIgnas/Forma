@@ -230,6 +230,7 @@ function setCheckBoxValue() {
   return checkboxValue;
 }
 checkboxContainer.addEventListener("click", setCheckBoxValue);
+
 function createRadioButton() {
   const radioButtonsContainer = document.createElement("div");
   radioButtonsMainContainer.style.fontSize = "20px";
@@ -276,6 +277,12 @@ addNoStyleToElements = () => {
   noStyle(ageInput);
   noStyle(phoneInput);
   noStyle(emailInput);
+  nameInput.value = "";
+  lastNameInput.value = "";
+  ageInput.value = "";
+  phoneInput.value = "";
+  emailInput.value = "";
+  rangeInput.value.value = "";
 };
 addStyleToElements = () => {
   addStyle(nameInput);
@@ -287,7 +294,7 @@ addStyleToElements = () => {
 
 buttonSubmit.addEventListener("click", (e) => {
   e.preventDefault();
-  const checkboxValue = setCheckBoxValue();
+  let checkboxValue = setCheckBoxValue();
   let secretEmailSymbols = "";
   for (let i = 0; i < emailInput.value.length; i++) {
     secretEmailSymbols = `${secretEmailSymbols}*`;
@@ -386,8 +393,8 @@ buttonSubmit.addEventListener("click", (e) => {
     showButton.addEventListener("click", () => {
       if (hiddenData) {
         showButton.textContent = "HIDE";
-        phoneInfo.innerHTML = phoneInput.value;
-        emailInfo.innerHTML = emailInput.value;
+        phoneInfo.innerHTML = localStorage.getItem("phone");
+        emailInfo.innerHTML = localStorage.getItem("email");
       } else if (!hiddenData) {
         showButton.textContent = "SHOW";
         phoneInfo.innerHTML = ` ${secretPhoneSymbols}`;
@@ -406,26 +413,41 @@ buttonSubmit.addEventListener("click", (e) => {
     });
     changeInput.textContent = "Change data";
     changeInput.addEventListener("click", () => {
+      setLocalStorageData = (key, studentInfo, inputValue) => {
+        studentInfo.textContent = inputValue.value;
+        localStorage.setItem(key, studentInfo.textContent);
+      };
       if (changeInput.textContent === "Change data") {
         changeInput.textContent = "Submit";
-        nameInput.value = nameInfo.textContent;
-        lastNameInput.value = lastNameInfo.textContent;
-        ageInput.value = ageInfo.textContent;
-        secretPhoneSymbols = phoneInfo.textContent;
-        secretEmailSymbols = emailInfo.textContent;
-        rangeInput.value = rangeInfo.textContent;
-        radioValue = radioInfo.textContent;
+        nameInput.value = localStorage.getItem("name");
+        lastNameInput.value = localStorage.getItem("lastName");
+        ageInput.value = localStorage.getItem("age");
+        phoneInput.value = localStorage.getItem("phone");
+        emailInput.value = localStorage.getItem("email");
+        rangeInput.value = localStorage.getItem("itKnowledge");
+        radioValue = localStorage.getItem("group");
+        checkboxValue = localStorage.getItem("interests");
         addStyleToElements();
+        console.log("ON");
       } else {
-        nameInfo.textContent = nameInput.value;
-        lastNameInfo.textContent = lastNameInput.value;
-        ageInfo.textContent = ageInput.value;
+        setLocalStorageData("name", nameInfo, nameInput);
+        setLocalStorageData("lastName", lastNameInfo, lastNameInput);
+        setLocalStorageData("age", ageInfo, ageInput);
+        setLocalStorageData("itKnowledge", rangeInfo, rangeInput);
+
         phoneInfo.textContent = secretPhoneSymbols;
+        localStorage.setItem("phone", phoneInput.value);
         emailInfo.textContent = secretEmailSymbols;
-        rangeInfo.textContent = rangeInput.value;
+        localStorage.setItem("email", emailInput.value);
         radioInfo.textContent = radioValue;
+        localStorage.setItem("group", radioInfo.textContent);
+
+        interests.textContent = checkboxValue;
+        localStorage.setItem("interests", interests.textContent);
+
         changeInput.textContent = "Change data";
         addNoStyleToElements();
+        console.log("OFF");
       }
     });
     studentItemBox(studentItem);
@@ -435,7 +457,24 @@ buttonSubmit.addEventListener("click", (e) => {
     removeMessageText(removeMessage);
     container.appendChild(studentItem);
     studentItem.append(showButton, removeStudent, changeInput);
+
+    localStorage.setItem("name", nameInput.value);
+    localStorage.setItem("lastName", lastNameInput.value);
+    localStorage.setItem("age", ageInput.value);
+    localStorage.setItem("phone", phoneInput.value);
+    localStorage.setItem("email", emailInput.value);
+    localStorage.setItem("itKnowledge", rangeInput.value);
+    localStorage.setItem("group", radioValue);
+    localStorage.setItem("interests", checkboxValue);
+
+    console.log(localStorage);
   }
+  nameInput.value = "";
+  lastNameInput.value = "";
+  ageInput.value = "";
+  phoneInput.value = "";
+  emailInput.value = "";
+  rangeInput.value.value = "";
 });
 
 searchForm.addEventListener("submit", (e) => {
