@@ -5,33 +5,43 @@ container.classList.add("container");
 
 const formContainer = document.createElement("form");
 formContainer.classList.add("form");
+formContainer.style.maxWidth = "500px";
+formContainer.style.margin = "auto";
+formContainer.style.marginTop = "50px";
 
 const nameItemContainer = document.createElement("div");
 const nameInput = document.createElement("input");
+nameInput.classList.add("input");
 const nameLabel = document.createElement("label");
 
 const lastNameItemContainer = document.createElement("div");
 const lastNameInput = document.createElement("input");
+lastNameInput.classList.add("input");
 const lastNameLabel = document.createElement("label");
 
 const ageItemContainer = document.createElement("div");
 const ageInput = document.createElement("input");
+ageInput.classList.add("input");
 const ageLabel = document.createElement("label");
 
 const phoneNumberContainer = document.createElement("div");
 const phoneInput = document.createElement("input");
+phoneInput.classList.add("input");
 const phoneLabel = document.createElement("label");
 
 const emailContainer = document.createElement("div");
 const emailInput = document.createElement("input");
+emailInput.classList.add("input");
 const emailLabel = document.createElement("label");
 
 const rangeContainer = document.getElementById("rangeContainer");
 const sliderElement = document.createElement("div");
-const rangeInput = document.getElementById("rangeInput");
+sliderElement.classList.add("sliderElement");
 
+const rangeInput = document.getElementById("rangeInput");
 const rangeLabel = document.createElement("label");
 const rangeTicks = document.getElementById("ticks");
+rangeInput.classList.add("input");
 const radioButtonsMainContainer = document.createElement("div");
 
 radioButtonsMainContainer.classList.add("radioButton2");
@@ -39,26 +49,112 @@ radioButtonsMainContainer.textContent = "Select your group*:";
 const tick = document.querySelectorAll(".tick");
 
 const submitButtonContainer = document.createElement("div");
-const submitButton = document.createElement("input");
+const submitButton = document.createElement("button");
 submitButton.setAttribute("id", "submitButton");
 const submitButtonLabel = document.createElement("label");
 
+const formHeader = document.createElement("div");
+formHeader.style.width = "100%";
+formHeader.style.height = "150px";
+formHeader.style.margin = "0px";
+formHeader.style.backgroundColor = "gray";
+
+const headerTitle = document.createElement("p");
+headerTitle.textContent = "Register a student";
+headerTitle.style.color = "white";
+headerTitle.style.lineHeight = "150px";
+headerTitle.style.fontSize = "25px";
+headerTitle.style.paddingLeft = "20px";
+
+const formInputs = document.createElement("div");
+formInputs.classList.add("form");
+formInputs.style.padding = "40px";
+formInputs.style.backgroundColor = "white";
+
 const requiered = document.createElement("p");
 requiered.style.marginTop = "20px";
-requiered.style.fontSize = "7px";
+requiered.style.fontSize = "13px";
 requiered.textContent = "*Requiered";
 
-let idCounter = 0;
+const searchForm = document.createElement("Form");
+const searchInput = document.createElement("input");
+const searchButton = document.createElement("input");
+const selectElement = document.createElement("select");
+const nameOption = document.createElement("option");
+const lastNameOption = document.createElement("option");
+const ageOption = document.createElement("option");
+const phoneOption = document.createElement("option");
+const emailOption = document.createElement("option");
+const groupOption = document.createElement("option");
+const interestOption = document.createElement("option");
 
-container.style.width = "100%";
+const interestContainer = document.createElement("div");
+interestContainer.style.width = "100%";
+interestContainer.style.height = "70px";
+interestContainer.style.marginTop = "20px";
+interestContainer.style.marginBottom = "20px";
 
-formContainer.style.width = "210px";
-formContainer.style.margin = "auto";
-formContainer.style.border = "1px solid black";
-formContainer.style.borderRadius = "7px";
-formContainer.style.padding = "7px";
+const interestContainerTitle = document.createElement("p");
+interestContainerTitle.textContent = "Interests:";
+interestContainerTitle.style.fontSize = "20px";
 
-formContainer.append(
+const checkboxContainer = document.createElement("div");
+checkboxContainer.style.display = "flex";
+checkboxContainer.style.justifyContent = "space-around";
+checkboxContainer.style.alignItems = "center";
+
+const checkBox1 = document.createElement("input");
+const checkBox2 = document.createElement("input");
+const checkBox3 = document.createElement("input");
+const checkBox4 = document.createElement("input");
+const checkBox1Label = document.createElement("label");
+const checkBox2Label = document.createElement("label");
+const checkBox3Label = document.createElement("label");
+const checkBox4Label = document.createElement("label");
+
+interestCheckBoxes = (element, name, value) => {
+  element.type = "checkbox";
+  element.name = name;
+  element.value = value;
+};
+interestCheckBoxLabels = (element, textContent, labelName) => {
+  element.style.fontSize = "15px";
+  element.textContent = textContent;
+  element.htmlFor = labelName;
+};
+interestCheckBoxes(checkBox1, "checkBox", "JAVA");
+interestCheckBoxes(checkBox2, "checkBox", "JavaScript");
+interestCheckBoxes(checkBox3, "checkBox", "C++");
+interestCheckBoxes(checkBox4, "checkBox", "Python");
+
+interestCheckBoxLabels(checkBox1Label, "JAVA");
+interestCheckBoxLabels(checkBox2Label, "JavaScript");
+interestCheckBoxLabels(checkBox3Label, "C++");
+interestCheckBoxLabels(checkBox4Label, "Python");
+
+interestContainer.append(interestContainerTitle, checkboxContainer);
+checkboxContainer.append(
+  checkBox1Label,
+  checkBox1,
+  checkBox2Label,
+  checkBox2,
+  checkBox3Label,
+  checkBox3,
+  checkBox4Label,
+  checkBox4
+);
+selectElement.append(
+  nameOption,
+  lastNameOption,
+  ageOption,
+  phoneOption,
+  emailOption,
+  groupOption,
+  interestOption
+);
+searchForm.append(searchInput, selectElement, searchButton);
+formContainer.append(formHeader, formInputs);
+formInputs.append(
   nameItemContainer,
   lastNameItemContainer,
   ageItemContainer,
@@ -66,12 +162,30 @@ formContainer.append(
   emailContainer,
   rangeContainer,
   radioButtonsMainContainer,
+  interestContainer,
   requiered,
-  submitButtonContainer
+  submitButtonContainer,
+  searchForm
 );
-//
+
+searchFormFunction(searchForm, searchInput, searchButton);
+
+slectOption(nameOption, "Name");
+slectOption(lastNameOption, "Last name");
+slectOption(ageOption, "Age");
+slectOption(phoneOption, "Phone");
+slectOption(emailOption, "Email");
+slectOption(groupOption, "Group");
+slectOption(interestOption, "Interest");
+selectElementStyle(selectElement);
+
+sliderElement.style.marginTop = "20px";
+sliderElement.style.width = "100%";
+
+submitButtonFunction(submitButton, submitButtonContainer);
 function createForm() {
-  container.appendChild(formContainer);
+  container.append(formContainer);
+  formHeader.append(headerTitle);
   nameItemContainer.append(nameLabel, nameInput);
   lastNameItemContainer.append(lastNameLabel, lastNameInput);
   ageItemContainer.append(ageLabel, ageInput);
@@ -80,200 +194,328 @@ function createForm() {
   rangeContainer.append(rangeLabel, sliderElement);
   sliderElement.append(rangeInput, rangeTicks);
   submitButtonContainer.append(submitButton, submitButtonLabel);
-
-  createNameEl();
-  createLastNameEl();
-  createAgeEl();
-  createPhoneEl();
-
-  createRangeEl();
-  createEmailEl();
+  createElement(nameItemContainer, nameInput, "text", "Name*", "nameLabel");
+  createElement(
+    lastNameItemContainer,
+    lastNameInput,
+    "text",
+    "Last Name*",
+    "lastNameLabel"
+  );
+  createElement(ageItemContainer, ageInput, "number", "Age*", "ageLabel");
+  createElement(
+    phoneNumberContainer,
+    phoneInput,
+    "number",
+    "Phone Nr.*",
+    "phoneLabel"
+  );
+  createElement(emailContainer, emailInput, "email", "Email*", "emailLabel");
+  createRangeEl(rangeContainer, rangeLabel, rangeInput);
   createRadioButton();
 }
 createForm();
-//CONTAINER
-
-//NAME
-
-function createNameEl() {
-  nameItemContainer.style.display = "flex";
-  nameItemContainer.style.justifyContent = "space-between";
-  nameItemContainer.style.alignItems = "center";
-  nameItemContainer.style.marginBottom = "10px";
-
-  nameInput.style.width = "150px";
-  nameInput.style.height = "20px";
-
-  nameInput.type = "text";
-  nameInput.placeholder = "Name";
-  nameInput.name = "nameLabel";
-  nameInput.required = true;
-
-  nameLabel.htmlFor = "nameLabel";
-  nameLabel.innerHTML = "Name* :";
-  nameLabel.style.fontSize = "10px";
+let radioValue;
+function setRadioValue(e) {
+  if (e.target.checked) {
+    radioValue = e.target.value;
+  }
 }
-//LAST NAME
-function createLastNameEl() {
-  lastNameItemContainer.style.display = "flex";
-  lastNameItemContainer.style.justifyContent = "space-between";
-  lastNameItemContainer.style.alignItems = "center";
-  lastNameItemContainer.style.marginBottom = "10px";
-
-  lastNameInput.style.width = "150px";
-  lastNameInput.style.height = "20px";
-
-  lastNameInput.type = "text";
-  lastNameInput.placeholder = "Last Name";
-  lastNameInput.name = "lastNameLabel";
-  lastNameInput.required = true;
-
-  lastNameLabel.htmlFor = "lastNameLabel";
-  lastNameLabel.innerHTML = "Last Name*: ";
-  lastNameLabel.style.fontSize = "10px";
-  lastNameLabel.style.lineHeight = "10px";
+function setCheckBoxValue() {
+  let checkboxValue = "";
+  let checkBoxes = document.getElementsByName("checkBox");
+  for (let i = 0; i < checkBoxes.length; i++) {
+    if (checkBoxes[i].checked) checkboxValue += checkBoxes[i].value + " ";
+  }
+  return checkboxValue;
 }
-//AGE
-function createAgeEl() {
-  ageItemContainer.style.display = "flex";
-  ageItemContainer.style.justifyContent = "space-between";
-  ageItemContainer.style.alignItems = "center";
-  ageItemContainer.style.marginBottom = "10px";
+checkboxContainer.addEventListener("click", setCheckBoxValue);
 
-  ageInput.style.width = "150px";
-  ageInput.style.height = "20px";
-
-  ageInput.type = "number";
-  ageInput.placeholder = "Age";
-  ageInput.name = "ageLabel";
-  ageInput.required;
-
-  ageLabel.htmlFor = "ageLabel";
-  ageLabel.innerHTML = "Age*: ";
-  ageLabel.style.fontSize = "10px";
+function createRadioButton() {
+  const radioButtonsContainer = document.createElement("div");
+  radioButtonsMainContainer.style.fontSize = "20px";
+  radioButtonsMainContainer.style.marginTop = "30px";
+  radioButtonsContainer.classList.add("radioButton");
+  radioButtonsContainer.style.fontSize = "10px";
+  radioButtonsContainer.style.marginTop = "10px";
+  formContainer.append(radioButtonsContainer);
+  radioButtonsMainContainer.append(radioButtonsContainer);
+  for (let i = 1; i <= 15; i++) {
+    const radioInput = document.createElement("input");
+    radioInput.classList.add("input");
+    const radioLabel = document.createElement("label");
+    radioInput.type = "radio";
+    radioInput.setAttribute("value", `TYPE ${i}gr`);
+    radioInput.name = `radioLabel`;
+    radioInput.setAttribute("Id", "radioInput");
+    radioLabel.innerHTML = `TYPE ${i}gr:`;
+    radioInput.addEventListener("click", setRadioValue);
+    radioInput.style.width = "20px";
+    radioInput.style.height = "20px";
+    radioButtonsContainer.style.textAlign = "center";
+    radioButtonsContainer.style.alignItems = "center";
+    radioButtonsContainer.style.marginTop = "25px";
+    radioLabel.style.fontSize = "13px";
+    radioLabel.style.lineHeight = "20px";
+    radioButtonsContainer.append(radioLabel, radioInput);
+  }
 }
-//PHONE
-function createPhoneEl() {
-  phoneNumberContainer.style.display = "flex";
-  phoneNumberContainer.style.justifyContent = "space-between";
-  phoneNumberContainer.style.alignItems = "center";
-  phoneNumberContainer.style.marginBottom = "10px";
-
-  phoneInput.style.width = "150px";
-  phoneInput.style.height = "20px";
-
-  phoneInput.type = "number";
-  phoneInput.placeholder = "Phone Nr.";
-  phoneInput.name = "phoneLabel";
-
-  phoneLabel.htmlFor = "phoneLabel";
-  phoneLabel.innerHTML = "Phone: ";
-  phoneLabel.style.fontSize = "10px";
-}
-//EMAIL
-function createEmailEl() {
-  emailContainer.style.display = "flex";
-  emailContainer.style.justifyContent = "space-between";
-  emailContainer.style.alignItems = "center";
-  emailContainer.style.marginBottom = "10px";
-
-  emailInput.style.width = "150px";
-  emailInput.style.height = "20px";
-
-  emailInput.type = "email";
-  emailInput.placeholder = "Email";
-  emailInput.name = "emailLabel";
-  emailInput.required = true;
-
-  emailLabel.htmlFor = "emailLabel";
-  emailLabel.innerHTML = "Email*: ";
-  emailLabel.style.fontSize = "10px";
-}
-
-//RANGE\
-function createRangeEl() {
-  rangeContainer.style.display = "flex";
-  rangeContainer.style.flexDirection = "space-between";
-  rangeLabel.htmlFor = "rangeInput";
-  rangeLabel.innerHTML = "Grade your IT knowledge*: ";
-  rangeLabel.style.width = "100%";
-  rangeLabel.style.fontSize = "10px";
-  rangeLabel.style.lineHeight = "12px";
-}
-
-//RADIO BUTTONS
-radioButtonsMainContainer.style.fontSize = "10px";
-radioButtonsMainContainer.style.marginTop = "10px";
-
-//SUBMIT
-
-submitButtonContainer.style.margin = "auto";
-submitButtonContainer.style.textAlign = "center";
-submitButtonContainer.style.marginTop = "10px";
-submitButton.type = "submit";
 
 const buttonSubmit = document.getElementById("submitButton");
+const createStudentInfo = (textContent, parent, addClass) => {
+  const studentInfo = document.createElement("p");
+  studentInfo.classList.add(addClass);
+  parent.append(studentInfo);
+  studentInfo.textContent = textContent;
+
+  return studentInfo;
+};
+
+addNoStyleToElements = () => {
+  noStyle(nameInput);
+  noStyle(lastNameInput);
+  noStyle(ageInput);
+  noStyle(phoneInput);
+  noStyle(emailInput);
+  nameInput.value = "";
+  lastNameInput.value = "";
+  ageInput.value = "";
+  phoneInput.value = "";
+  emailInput.value = "";
+  rangeInput.value.value = "";
+};
+addStyleToElements = () => {
+  addStyle(nameInput);
+  addStyle(lastNameInput);
+  addStyle(ageInput);
+  addStyle(phoneInput);
+  addStyle(emailInput);
+};
+
 buttonSubmit.addEventListener("click", (e) => {
   e.preventDefault();
-  const noName = "Name not filled";
-  const noEmail = "Email not filled";
-  const noLastName = "Last Name not filled";
+  let checkboxValue = setCheckBoxValue();
+  let secretEmailSymbols = "";
+  for (let i = 0; i < emailInput.value.length; i++) {
+    secretEmailSymbols = `${secretEmailSymbols}*`;
+  }
+  let secretPhoneSymbols = "";
+  for (let i = 0; i < phoneInput.value.length; i++) {
+    secretPhoneSymbols = `${secretPhoneSymbols}*`;
+  }
+  const studentItem = document.createElement("div");
+  studentItem.classList.add("studentItem");
+  const showButton = document.createElement("button");
+  const removeStudent = document.createElement("button");
+  const removeMessage = document.createElement("span");
+  const changeInput = document.createElement("button");
+  const nameInfo = createStudentInfo(
+    nameInput.value,
+    studentItem,
+    "studentName"
+  );
 
-  emailInput.value !== "" &&
-  nameInput.value !== "" &&
-  lastNameInput.value !== "" &&
-  ageInput.value !== "" &&
-  rangeTicks.checked !== "" &&
-  myRadioInput.checked
-    ? alert(
-        `Name: ${nameInput.value}, Lastname: ${lastNameInput.value}, Email: ${emailInput.value}, Age: ${ageInput.value}, It knowledge: ${rangeInput.value} ${radioLabel.innerHTML}`
-      )
-    : alert("You didint fill out the requiered fields");
+  const lastNameInfo = createStudentInfo(
+    lastNameInput.value,
+    studentItem,
+    "studentLastName"
+  );
+
+  const ageInfo = createStudentInfo(ageInput.value, studentItem, "studentAge");
+
+  const phoneInfo = createStudentInfo(
+    secretPhoneSymbols,
+    studentItem,
+    "studentPhone"
+  );
+
+  const emailInfo = createStudentInfo(
+    secretEmailSymbols,
+    studentItem,
+    "studentEmail"
+  );
+
+  const rangeInfo = createStudentInfo(
+    rangeInput.value,
+    studentItem,
+    "studentRangeInfo"
+  );
+  const radioInfo = createStudentInfo(
+    radioValue,
+    studentItem,
+    "studentRadioInfo"
+  );
+  const interests = createStudentInfo(
+    checkboxValue,
+    studentItem,
+    "studentInterests"
+  );
+  if (
+    nameInput.value === "" &&
+    lastNameInput.value === "" &&
+    ageInput.value === "" &&
+    phoneInput.value === "" &&
+    emailInput.value === ""
+  ) {
+    alert("Required fields are not filled");
+    inputAlert(nameInput, "Name requiered");
+    inputAlert(lastNameInput, "Last name requiered");
+    inputAlert(ageInput, "Age requiered");
+    inputAlert(phoneInput, "Phone requiered");
+    inputAlert(emailInput, "Email requiered");
+  } else if (lastNameInput.value.length < 3 && nameInput.value.length < 3) {
+    alert("Name and LastName has to be at least 3 letters long");
+    inputAlert(lastNameInput, "Last name requiered");
+    inputAlert(nameInput, "Name requiered");
+  } else if (nameInput.value.length < 3) {
+    alert("Name has to be atleast 3 letters long");
+    inputAlert(nameInput, "Name requiered");
+  } else if (lastNameInput.value.length < 3) {
+    alert("LastName has to be atleast 3 letters long");
+    inputAlert(lastNameInput, "Last name requiered");
+  } else if (ageInput.value <= 0) {
+    alert(
+      "Age must be a positive number (Must be more than 0 and less than 120)"
+    );
+    inputAlert(ageInput, "Age requiered");
+  } else if (ageInput.value >= 120) {
+    alert("Age is invalid (Must be more than 0 and less than 120)");
+    inputAlert(ageInput, "Age requiered");
+  } else if (phoneInput.value.length < 9 || phoneInput.value.length > 12) {
+    alert("Incorect phone number (Must be between 9 and 12 numbers)");
+    inputAlert(phoneInput, "Phone requiered");
+  } else if (emailInput.value.length < 5 || !emailInput.value.includes("@")) {
+    alert("Incorect Email (must contain @ and be atleast 5 symbols long)");
+    inputAlert(emailInput, "Email requiered");
+  } else {
+    let hiddenData = true;
+    showButton.textContent = "SHOW";
+    showButton.addEventListener("click", () => {
+      if (hiddenData) {
+        showButton.textContent = "HIDE";
+        phoneInfo.innerHTML = localStorage.getItem("phone");
+        emailInfo.innerHTML = localStorage.getItem("email");
+      } else if (!hiddenData) {
+        showButton.textContent = "SHOW";
+        phoneInfo.innerHTML = ` ${secretPhoneSymbols}`;
+        emailInfo.innerHTML = `${secretEmailSymbols}`;
+      }
+      hiddenData = !hiddenData;
+    });
+    removeStudent.textContent = "Remove student";
+    removeStudent.addEventListener("click", () => {
+      container.prepend(removeMessage);
+      container.removeChild(studentItem);
+      removeMessage.textContent = `Student ${nameInfo.textContent} was removed`;
+      setTimeout(() => {
+        container.removeChild(removeMessage);
+      }, 5000);
+    });
+    changeInput.textContent = "Change data";
+    changeInput.addEventListener("click", () => {
+      setLocalStorageData = (key, studentInfo, inputValue) => {
+        studentInfo.textContent = inputValue.value;
+        localStorage.setItem(key, studentInfo.textContent);
+      };
+      if (changeInput.textContent === "Change data") {
+        changeInput.textContent = "Submit";
+        nameInput.value = localStorage.getItem("name");
+        lastNameInput.value = localStorage.getItem("lastName");
+        ageInput.value = localStorage.getItem("age");
+        phoneInput.value = localStorage.getItem("phone");
+        emailInput.value = localStorage.getItem("email");
+        rangeInput.value = localStorage.getItem("itKnowledge");
+        radioValue = localStorage.getItem("group");
+        checkboxValue = localStorage.getItem("interests");
+        addStyleToElements();
+        console.log("ON");
+      } else {
+        setLocalStorageData("name", nameInfo, nameInput);
+        setLocalStorageData("lastName", lastNameInfo, lastNameInput);
+        setLocalStorageData("age", ageInfo, ageInput);
+        setLocalStorageData("itKnowledge", rangeInfo, rangeInput);
+
+        phoneInfo.textContent = secretPhoneSymbols;
+        localStorage.setItem("phone", phoneInput.value);
+        emailInfo.textContent = secretEmailSymbols;
+        localStorage.setItem("email", emailInput.value);
+        radioInfo.textContent = radioValue;
+        localStorage.setItem("group", radioInfo.textContent);
+
+        interests.textContent = checkboxValue;
+        localStorage.setItem("interests", interests.textContent);
+
+        changeInput.textContent = "Change data";
+        addNoStyleToElements();
+        console.log("OFF");
+      }
+    });
+    studentItemBox(studentItem);
+    studentItemBoxButtonStyles(showButton);
+    studentItemBoxButtonStyles(removeStudent);
+    studentItemBoxButtonStyles(changeInput);
+    removeMessageText(removeMessage);
+    container.appendChild(studentItem);
+    studentItem.append(showButton, removeStudent, changeInput);
+
+    localStorage.setItem("name", nameInput.value);
+    localStorage.setItem("lastName", lastNameInput.value);
+    localStorage.setItem("age", ageInput.value);
+    localStorage.setItem("phone", phoneInput.value);
+    localStorage.setItem("email", emailInput.value);
+    localStorage.setItem("itKnowledge", rangeInput.value);
+    localStorage.setItem("group", radioValue);
+    localStorage.setItem("interests", checkboxValue);
+
+    console.log(localStorage);
+  }
+  nameInput.value = "";
+  lastNameInput.value = "";
+  ageInput.value = "";
+  phoneInput.value = "";
+  emailInput.value = "";
+  rangeInput.value.value = "";
 });
 
-const radioButtonsContainer = document.createElement("div");
-radioButtonsContainer.classList.add("radioButton");
-radioButtonsContainer.style.fontSize = "10px";
-radioButtonsContainer.style.marginTop = "10px";
-formContainer.append(radioButtonsContainer);
-radioButtonsMainContainer.append(radioButtonsContainer);
-function createRadioButton() {}
-
-for (let i = 1; i <= 15; i++) {
-  const radioInput = document.createElement("input");
-  const radioLabel = document.createElement("label");
-  radioInput.classList.add("radioInput");
-  radioLabel.classList.add("radioLabel");
-
-  radioInput.type = "radio";
-  radioInput.setAttribute("id", idCounter);
-  radioInput.name = `radiolLabel${i}`;
-  radioLabel.htmlFor = `radiolLabel${i}`;
-  radioLabel.setAttribute("id", idCounter);
-  radioLabel.innerHTML = `TYPE ${i}gr:`;
-
-  radioButtonsContainer.style.textAlign = "center";
-  radioButtonsContainer.style.alignItems = "center";
-  // document.querySelector('input[name="radiolLabel"]:checked').value;
-  radioLabel.style.fontSize = "6px";
-  radioButtonsContainer.append(radioLabel, radioInput);
-  const radios = (radioLabel.htmlFor = `radiolLabel${i}`);
-  if (radios.checked) {
-    alert("SSS");
-  }
-  for (var j = 0, length = radios.length; j < length; j++) {
-    if (radios[j].checked) {
-      // do whatever you want with the checked radio
-      console.log(radios[i].value);
-
-      // only one radio can be logically checked, don't check the rest
-      break;
+searchForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  searchfunction = (option, student, studentInfo) => {
+    let formInputData = e.target.elements.search.value.toLowerCase().trim();
+    let searchVariation = e.target.elements.variations.value;
+    if (searchVariation === option) {
+      if (studentInfo.includes(formInputData)) {
+        student.style.display = "block";
+      } else {
+        student.style.display = "none";
+      }
     }
-  }
-  idCounter++;
-}
+  };
+  myfunction = (student, className) => {
+    studentInputInfo = student
+      .querySelector(className)
+      .textContent.toLowerCase();
+    return studentInputInfo;
+  };
+  let studentItems = document.querySelectorAll(".studentItem");
+  studentItems.forEach((student) => {
+    let studentName = myfunction(student, ".studentName");
+    let studentLastName = myfunction(student, ".studentLastName");
+    let studentAge = myfunction(student, ".studentAge");
+    let studentPhone = myfunction(student, ".studentPhone");
+    let studentEmail = myfunction(student, ".studentEmail");
+    let studentGroup = myfunction(student, ".studentRadioInfo");
+    let studentInterests = myfunction(student, ".studentInterests");
+    searchfunction("Name", student, studentName);
+    searchfunction("Last name", student, studentLastName);
+    searchfunction("Age", student, studentAge);
+    searchfunction("Phone", student, studentPhone);
+    searchfunction("Email", student, studentEmail);
+    searchfunction("Group", student, studentGroup);
+    searchfunction("Interest", student, studentInterests);
+  });
+  searchInput.value = "";
+});
 
-console.log(emailInput);
 function ticks(element) {
   if (
     element.hasOwnProperty("list") &&
